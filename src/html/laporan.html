@@ -186,9 +186,9 @@
 ID        : ${transaksi.id}
 Jenis     : ${transaksi.jenis}
 Tanggal   : ${new Date(transaksi.created_at).toLocaleString('id-ID')}
--------------------------------------
-Nama Barang        Jumlah      Harga
--------------------------------------
+------------------------------------
+Nama Barang      Jumlah     Harga
+------------------------------------
 ${detail.map(item => {
         const maxNamaLength = 16;
         let nama = item.nama.length > maxNamaLength
@@ -202,15 +202,15 @@ ${detail.map(item => {
 
         return `${nama}${jumlah}${harga}`;
       }).join('\n')}
--------------------------------------
+------------------------------------
 Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
-=====================================
-
+====================================
 -- Terima Kasih --
+
 `;
       const { jsPDF } = window.jspdf;
-      const margin = 3;
+      const margin = 2;
       const lineHeight = 3;
 
       const lines = struk.trim().split('\n');
@@ -223,7 +223,7 @@ Keterangan: ${transaksi.keterangan || '-'}
       });
 
       doc.setFont("Courier", "normal");
-      doc.setFontSize(6);
+      doc.setFontSize(5);
 
       lines.forEach((line, index) => {
         const y = margin + (index + 1) * lineHeight;
