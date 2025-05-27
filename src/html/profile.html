@@ -1,0 +1,101 @@
+<section class="section main-section">
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+          Buat User
+        </p>
+      </header>
+      <div class="card-content">
+        <form>
+          <div class="field">
+            <label class="label">Avatar</label>
+            <div class="field-body">
+              <div class="field file">
+                <label class="upload control">
+                  <a class="button blue">Upload</a>
+                  <input type="file" name="avatar">
+                </label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">Nama</label>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input type="text" name="name" class="input" placeholder="Masukkan nama lengkap" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input type="email" name="email" class="input" placeholder="Masukkan email" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button green">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-account"></i></span>
+          Profil
+        </p>
+      </header>
+      <div class="card-content">
+        <div class="image w-48 h-48 mx-auto">
+          <img src="img/profil.png" alt="User Avatar" class="rounded-full">
+        </div>
+        <hr>
+        <div class="field">
+          <label class="label">Nama</label>
+          <div class="control">
+            <input id="nameLogin" name="name" type="text" readonly value="" class="input is-static">
+          </div>
+        </div>
+        <hr>
+        <div class="field">
+          <label class="label">Role</label>
+          <div class="control">
+            <input id="emailLogin" type="text" readonly value="Super Admin" class="input is-static">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- get user -->
+<script>
+  async function getUser() {
+    //const API_URL = document.body.dataset.apiUrl;
+    try {
+      const response = await fetch(`${API_URL}/getUser`,
+        {
+          method: 'GET',
+          credentials: "include"
+        })
+      const result = await response.json()
+      document.getElementById('nameLogin').value = result.nama;
+    } catch (err) {
+      console.error('gagal mengambil data user', err)
+    }
+  }
+  getUser();
+</script>

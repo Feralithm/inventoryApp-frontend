@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barang</title>
+  <link rel="stylesheet" href="css/main.css?v=1748353626851">
+</head>
+
+<body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
+  <script>
+    // variabel global
+    const API_URL = document.body.dataset.apiUrl;
+    let barangIdToDelete = null;
+  </script>
+<div id="app">
+
+<nav id="navbar-main" class="navbar is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item mobile-aside-button">
+      <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+    </a>
+  </div>
+
+  <div class="relative inline-block text-left">
+    <button id="dropdownToggle"
+      class="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-blue-400 focus:outline-none">
+      <img src="img/profil.png" alt="profil" class="w-8 h-8 rounded-full">
+      <span id="userLogin" class="text-sm font-medium text-gray-700"></span>
+      <i class="mdi mdi-chevron-down text-gray-500"></i>
+    </button>
+
+    <div id="dropdownMenu"
+      class="absolute right-2 mt-2 w-48 max-w-xs bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 hidden z-50">
+      <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        My Profile
+      </a>
+      <div class="border-t border-gray-200 my-1"></div>
+      <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  </div>
+  </div>
+</nav>
+
+<script>
+  async function getUser() {
+    try {
+      const response = await fetch(`${API_URL}/getUser`,
+        {
+          method: 'GET',
+          credentials: "include"
+        })
+
+      if (!response.ok) {
+        window.location.href = 'login.html'
+        alert('Silahkan Login dulu')
+      }
+      const result = await response.json()
+      document.getElementById('userLogin').innerHTML = result.nama;
+    } catch (err) {
+      console.error('gagal mengambil data user', err)
+    }
+  }
+  getUser();
+</script>
+
+<script>
+  async function logout() {
+    try {
+      await fetch(`${API_URL}/logout`, {
+        method: "POST",
+        credentials: "include"
+      })
+      window.location.href = 'login.html'
+    } catch (err) {
+      console.log("gagal logout: " + err)
+    }
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('dropdownToggle');
+    const menu = document.getElementById('dropdownMenu');
+
+    // Toggle dropdown saat diklik
+    const toggleMenu = (e) => {
+      e.preventDefault();
+      menu.classList.toggle('hidden');
+    };
+
+    toggle.addEventListener('click', toggleMenu);
+    toggle.addEventListener('touchstart', toggleMenu);
+
+    // Tutup dropdown jika klik di luar
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('touchstart', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+  });
+</script>
+<aside class="aside is-placed-left is-expanded">
+  <div class="aside-tools">
+    <div>
+      LA <b class="font-black">Store</b>
+    </div>
+  </div>
+  <div class="menu is-menu-main">
+    <p class="menu-label">Umum</p>
+    <ul class="menu-list">
+      <li class="--set-active-index-html">
+        <a href="index.html">
+          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+          <span class="menu-item-label">Dashboard</span>
+        </a>
+      </li>
+    </ul>
+    <p class="menu-label">Lainnya</p>
+    <ul class="menu-list">
+      <li class="--set-active-tables-html">
+        <a href="laporan.html">
+          <span class="icon"><i class="mdi mdi-table"></i></span>
+          <span class="menu-item-label">Laporan</span>
+        </a>
+      </li>
+      <li class="--set-active-forms-html">
+        <a href="transaksi.html">
+          <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+          <span class="menu-item-label">Transaksi</span>
+        </a>
+      </li>
+      <li class="--set-active-profile-html">
+        <a href="profile.html">
+          <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+          <span class="menu-item-label">Akun</span>
+        </a>
+      </li>
+      <li>
+        <a class="dropdown">
+          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="menu-item-label">Barang</span>
+          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="tambahBarang.html">
+              <span>Tambah barang</span>
+            </a>
+          </li>
+          <li>
+            <a href="cariBarang.html">
+              <span>Cari data barang</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p class="menu-label">Tentang</p>
+    <ul class="menu-list">
+      <li>
+        <a href="https://instagram.com/fddyyy_" class="has-icon">
+          <span class="icon"><i class="mdi mdi-help-circle"></i></span>
+          <span class="menu-item-label">About</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/fddyyy" class="has-icon">
+          <span class="icon"><i class="mdi mdi-github-circle"></i></span>
+          <span class="menu-item-label">GitHub</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Admin</li>
+      <li>Barang</li>
+    </ul>
+  </div>
+</section>
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Tambah Barang
+    </h1>
+  </div>
+</section>
+<section class="section main-section">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-plus-box"></i></span>
+                Form Tambah Barang
+            </p>
+        </header>
+        <div class="card-content">
+            <form id="formTambahBarang">
+                <div class="field">
+                    <label class="label">Nama Barang</label>
+                    <div class="control">
+                        <input type="text" name="nama" class="input" required placeholder="Contoh: Lemari MS 3 susun">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Deskripsi <small>(opsional)</small></label>
+                    <div class="control">
+                        <textarea name="deskripsi" class="textarea"
+                            placeholder="Deskripsi barang (boleh dikosongkan)"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Stok</label>
+                    <div class="control">
+                        <input type="number" min="0" name="stok" class="input" required placeholder="Contoh: 3">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Harga</label>
+                    <div class="control">
+                        <input type="number" min="0" name="harga" class="input" autocomplete="off" required
+                            placeholder="Contoh: 400000">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Kategori</label>
+                    <div class="control">
+                        <div class="select">
+                            <select name="kategori" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <option value="Parabot">Parabot</option>
+                                <option value="Aksesoris">Aksesoris</option>
+                                <option value="Kosmetik">Kosmetik</option>
+                                <option value="Digital">Digital</option>
+                                <option value="Elektronik">Elektronik</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="field">
+                    <label class="label">URL Gambar <small>(opsional)</small></label>
+                    <div class="control">
+                        <input type="url" name="gambar" class="input" placeholder="https://link-gambar.jpg">
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="field grouped">
+                    <div class="control">
+                        <button type="submit" class="button green">Simpan</button>
+                    </div>
+                    <div class="control">
+                        <button type="reset" class="button red">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-content">
+            <div id="qrSection" class="hidden mt-5 flex-col items-center">
+                <h2 class="text-xl font-semibold mb-4">QR Code Barang</h2>
+                <img id="qrImage" alt="QR Code" class="max-w-xs" />
+                <button onclick="cetakQRLabelPDF()" class="mt-4 button blue">Cetak PDF</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    async function cetakQRLabelPDF() {
+        const { jsPDF } = window.jspdf;
+        const qrImage = document.getElementById("qrImage");
+
+        if (!qrImage || !qrImage.src) {
+            alert("QR Code belum tersedia.");
+            return;
+        }
+
+        const doc = new jsPDF({
+            orientation: "landscape",
+            unit: "mm",
+            format: [50, 30]
+        });
+
+        const imgWidth = 20;
+        const imgHeight = 20;
+
+        // Posisi QR pertama
+        const x1 = 5;
+        const y1 = 5;
+
+        // Posisi QR kedua
+        const x2 = 25;
+        const y2 = 5;
+
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.src = qrImage.src;
+
+        img.onload = function () {
+            // Gambar dua QR di posisi berbeda
+            doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
+            doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
+
+            doc.save("label-qr.pdf");
+        };
+
+        img.onerror = function () {
+            alert("Gagal memuat gambar QR Code.");
+        };
+    }
+</script>
+
+<script>
+    document.getElementById("formTambahBarang").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+
+        const data = {
+            nama: form.nama.value,
+            deskripsi: form.deskripsi.value,
+            stok: parseInt(form.stok.value),
+            harga: parseInt(form.harga.value),
+            kategori: form.kategori.value,
+            gambar: form.gambar.value || null
+        };
+
+        try {
+            const res = await fetch(`${API_URL}/barang`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+            if (res.ok) {
+                alert("Barang berhasil ditambahkan!");
+                form.reset();
+                const qrSection = document.getElementById("qrSection");
+                const qrImage = document.getElementById("qrImage");
+
+                qrImage.src = result.qrCode;
+                qrSection.classList.remove("hidden");
+                qrSection.classList.add("flex");
+            } else {
+                alert("Gagal: " + result.message);
+            }
+        } catch (err) {
+            alert("Terjadi kesalahan: " + err.message);
+        }
+    });
+</script>
+<footer class="footer">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+    <div class="flex items-center justify-start space-x-3">
+      <div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div id="sample-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Hapus barang</p>
+    </header>
+    <section class="modal-card-body">
+      <p>Apakah anda yakin ingin <b>Menghapus</b></p>
+      <p>barang ini?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button --jb-modal-close">Batal</button>
+      <button class="button red --jb-modal-close" onclick="deleteBarang()">Hapus</button>
+    </footer>
+  </div>
+</div>
+
+<div id="sample-modal-2" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Gambar</p>
+    </header>
+    <section class="modal-card-body">
+      <p>Gambar <b>tidak tersedia</b></p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button blue --jb-modal-close">Kembali</button>
+    </footer>
+  </div>
+</div>
+</div>
+
+<!-- Scripts below are for demo only -->
+<script type="text/javascript" src="js/main.min.js?v=1748353626851"></script>
+
+<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
+</body>
+
+</html>

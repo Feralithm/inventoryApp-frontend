@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transaksi</title>
+  <link rel="stylesheet" href="css/main.css?v=1748353626851">
+</head>
+
+<body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
+  <script>
+    // variabel global
+    const API_URL = document.body.dataset.apiUrl;
+    let barangIdToDelete = null;
+  </script>
+<div id="app">
+
+<nav id="navbar-main" class="navbar is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item mobile-aside-button">
+      <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+    </a>
+  </div>
+
+  <div class="relative inline-block text-left">
+    <button id="dropdownToggle"
+      class="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-blue-400 focus:outline-none">
+      <img src="img/profil.png" alt="profil" class="w-8 h-8 rounded-full">
+      <span id="userLogin" class="text-sm font-medium text-gray-700"></span>
+      <i class="mdi mdi-chevron-down text-gray-500"></i>
+    </button>
+
+    <div id="dropdownMenu"
+      class="absolute right-2 mt-2 w-48 max-w-xs bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 hidden z-50">
+      <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        My Profile
+      </a>
+      <div class="border-t border-gray-200 my-1"></div>
+      <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  </div>
+  </div>
+</nav>
+
+<script>
+  async function getUser() {
+    try {
+      const response = await fetch(`${API_URL}/getUser`,
+        {
+          method: 'GET',
+          credentials: "include"
+        })
+
+      if (!response.ok) {
+        window.location.href = 'login.html'
+        alert('Silahkan Login dulu')
+      }
+      const result = await response.json()
+      document.getElementById('userLogin').innerHTML = result.nama;
+    } catch (err) {
+      console.error('gagal mengambil data user', err)
+    }
+  }
+  getUser();
+</script>
+
+<script>
+  async function logout() {
+    try {
+      await fetch(`${API_URL}/logout`, {
+        method: "POST",
+        credentials: "include"
+      })
+      window.location.href = 'login.html'
+    } catch (err) {
+      console.log("gagal logout: " + err)
+    }
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('dropdownToggle');
+    const menu = document.getElementById('dropdownMenu');
+
+    // Toggle dropdown saat diklik
+    const toggleMenu = (e) => {
+      e.preventDefault();
+      menu.classList.toggle('hidden');
+    };
+
+    toggle.addEventListener('click', toggleMenu);
+    toggle.addEventListener('touchstart', toggleMenu);
+
+    // Tutup dropdown jika klik di luar
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('touchstart', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+  });
+</script>
+<aside class="aside is-placed-left is-expanded">
+  <div class="aside-tools">
+    <div>
+      LA <b class="font-black">Store</b>
+    </div>
+  </div>
+  <div class="menu is-menu-main">
+    <p class="menu-label">Umum</p>
+    <ul class="menu-list">
+      <li class="--set-active-index-html">
+        <a href="index.html">
+          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+          <span class="menu-item-label">Dashboard</span>
+        </a>
+      </li>
+    </ul>
+    <p class="menu-label">Lainnya</p>
+    <ul class="menu-list">
+      <li class="--set-active-tables-html">
+        <a href="laporan.html">
+          <span class="icon"><i class="mdi mdi-table"></i></span>
+          <span class="menu-item-label">Laporan</span>
+        </a>
+      </li>
+      <li class="--set-active-forms-html">
+        <a href="transaksi.html">
+          <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+          <span class="menu-item-label">Transaksi</span>
+        </a>
+      </li>
+      <li class="--set-active-profile-html">
+        <a href="profile.html">
+          <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+          <span class="menu-item-label">Akun</span>
+        </a>
+      </li>
+      <li>
+        <a class="dropdown">
+          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="menu-item-label">Barang</span>
+          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="tambahBarang.html">
+              <span>Tambah barang</span>
+            </a>
+          </li>
+          <li>
+            <a href="cariBarang.html">
+              <span>Cari data barang</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p class="menu-label">Tentang</p>
+    <ul class="menu-list">
+      <li>
+        <a href="https://instagram.com/fddyyy_" class="has-icon">
+          <span class="icon"><i class="mdi mdi-help-circle"></i></span>
+          <span class="menu-item-label">About</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/fddyyy" class="has-icon">
+          <span class="icon"><i class="mdi mdi-github-circle"></i></span>
+          <span class="menu-item-label">GitHub</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Admin</li>
+      <li>Transaksi</li>
+    </ul>
+  </div>
+</section>
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Formulir Transaksi Barang
+    </h1>
+  </div>
+</section>
+<section class="section main-section">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-cart"></i></span>
+        Form Transaksi
+      </p>
+    </header>
+    <div class="card-content">
+      <form id="formTransaksi">
+        <div class="field">
+          <label class="label">Jenis Transaksi</label>
+          <div class="control">
+            <div class="select">
+              <select name="jenis" required>
+                <option value="keluar">keluar</option>
+                <option value="masuk">masuk</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Keterangan</label>
+          <div class="control">
+            <div class="select">
+              <select name="keterangan" required>
+                <option value="reseller">Reseller</option>
+                <option value="costumer">Costumer</option>
+                <option value="suplier">Suplier</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <label class="label">Detail Barang</label>
+        <div id="barang-container"></div>
+
+        <div class="field">
+          <button type="button" class="button small green" onclick="tambahBarang()">+ Tambah Barang</button>
+          <button type="button" class="button small is-info" onclick="mulaiScan()">📷 Scan QR</button>
+          <button type="button" class="button small is-danger" onclick="tutupScan()">✖️ Tutup Kamera</button>
+
+        </div>
+
+        <div id="qr-reader" style="width: 300px; margin-top: 1rem;"></div>
+
+        <hr>
+        <div class="field grouped">
+          <div class="control">
+            <button type="submit" class="button green">Proses Transaksi</button>
+          </div>
+          <div class="control">
+            <button type="button" class="button red" onclick="resetFormTransaksi()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<!-- fungsi scan dan tambah barang -->
+<script>
+
+  let html5QrCode;
+  let barangTerakhir = null;
+  let barangIndex = 0;
+
+  function mulaiScan() {
+    const qrDiv = document.getElementById("qr-reader");
+    if (!html5QrCode) {
+      html5QrCode = new Html5Qrcode("qr-reader");
+    }
+
+    Html5Qrcode.getCameras().then(cameras => {
+      if (cameras && cameras.length) {
+        html5QrCode.start(
+          cameras[0].id,
+          {
+            fps: 10,
+            qrbox: 250
+          },
+          qrCodeMessage => {
+            try {
+              let barang_id = null;
+              let harga = null;
+
+              // Coba dulu parse sebagai JSON
+              try {
+                const data = JSON.parse(qrCodeMessage);
+                barang_id = data.barang_id;
+                harga = data.harga;
+              } catch (e) {
+                // Kalau gagal, coba parsing manual dari teks
+                const lines = qrCodeMessage.split('\n');
+                lines.forEach(line => {
+                  if (line.toLowerCase().includes("id:")) {
+                    barang_id = parseInt(line.split(':')[1].trim());
+                  } else if (line.toLowerCase().includes("harga:")) {
+                    const hargaStr = line.split(':')[1].replace(/[^\d]/g, '');
+                    harga = parseInt(hargaStr);
+                  }
+                });
+              }
+
+              if (barang_id && harga) {
+                if (barangTerakhir) {
+                  barangTerakhir.querySelector("input[name='barang_id']").value = barang_id;
+                  barangTerakhir.querySelector("input[name='harga']").value = harga;
+                  alert("Scan berhasil untuk ID: " + barang_id);
+                  barangTerakhir = null;
+                }
+              } else {
+                alert("QR tidak valid atau data tidak lengkap.");
+              }
+
+            } catch (err) {
+              alert("Gagal memproses QR Code");
+            }
+          },
+          errorMessage => {
+            // abaikan error scanning
+          }
+        );
+      }
+    });
+  }
+
+
+  function tambahBarang() {
+    const container = document.getElementById('barang-container');
+
+    const row = document.createElement('div');
+    row.className = 'field is-grouped mb-2';
+    row.setAttribute('data-index', barangIndex);
+
+    row.innerHTML = `
+      <div class="control is-expanded">
+        <input type="number" class="input" name="barang_id" placeholder="ID Barang" required>
+      </div>
+      <div class="control">
+        <input type="number" min="0" class="input" name="jumlah" placeholder="Jumlah" required>
+      </div>
+      <div class="control">
+        <input type="number" min="0" class="input" name="harga" placeholder="Harga" required>
+      </div>
+      <div class="control">
+        <button type="button" class="button is-danger" onclick="this.closest('.field').remove()">Hapus</button>
+      </div>
+    `;
+
+    container.appendChild(row);
+    barangTerakhir = row;
+    barangIndex++;
+  }
+
+
+
+  function resetFormTransaksi() {
+    // Stop kamera jika aktif
+    if (html5QrCode && html5QrCode._isScanning) {
+      html5QrCode.stop().then(() => {
+        document.getElementById("qr-reader").innerHTML = "";
+      }).catch(err => {
+        console.warn("Gagal stop kamera saat reset:", err);
+      });
+    }
+
+    // Reset form
+    document.getElementById("formTransaksi").reset();
+
+    // Kosongkan detail barang
+    document.getElementById("barang-container").innerHTML = "";
+    barangIndex = 0;
+    barangTerakhir = null;
+  }
+
+
+  function tutupScan() {
+    if (html5QrCode) {
+      html5QrCode.stop().then(() => {
+        document.getElementById("qr-reader").innerHTML = "";
+      }).catch(err => {
+        console.error("Gagal menutup kamera:", err);
+      });
+    }
+  }
+
+</script>
+
+<!-- fungsi transaksi -->
+<script>
+  document.getElementById("formTransaksi").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const jenis = this.jenis.value;
+    const keterangan = this.keterangan.value;
+
+    const barangList = [];
+    const container = document.getElementById("barang-container");
+    const rows = container.querySelectorAll(".field[data-index]");
+
+    rows.forEach(row => {
+      const barang_id = row.querySelector("input[name='barang_id']").value;
+      const jumlah = row.querySelector("input[name='jumlah']").value;
+      const harga = row.querySelector("input[name='harga']").value;
+
+      if (barang_id && jumlah && harga) {
+        barangList.push({
+          barang_id: parseInt(barang_id),
+          jumlah: parseInt(jumlah),
+          harga: parseInt(harga)
+        });
+      }
+    });
+
+    if (barangList.length === 0) {
+      alert("Tambahkan minimal 1 barang!");
+      return;
+    }
+
+    const data = {
+      jenis,
+      keterangan,
+      detail: barangList
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/transaksi`, {
+        method: "POST",
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        alert("Transaksi berhasil disimpan!");
+        resetFormTransaksi();
+      } else {
+        alert("Gagal: " + (result.message || "Terjadi kesalahan."));
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("Terjadi kesalahan jaringan.");
+    }
+  });
+</script>
+<footer class="footer">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+    <div class="flex items-center justify-start space-x-3">
+      <div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div id="sample-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Hapus barang</p>
+    </header>
+    <section class="modal-card-body">
+      <p>Apakah anda yakin ingin <b>Menghapus</b></p>
+      <p>barang ini?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button --jb-modal-close">Batal</button>
+      <button class="button red --jb-modal-close" onclick="deleteBarang()">Hapus</button>
+    </footer>
+  </div>
+</div>
+
+<div id="sample-modal-2" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Gambar</p>
+    </header>
+    <section class="modal-card-body">
+      <p>Gambar <b>tidak tersedia</b></p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button blue --jb-modal-close">Kembali</button>
+    </footer>
+  </div>
+</div>
+</div>
+
+<!-- Scripts below are for demo only -->
+<script type="text/javascript" src="js/main.min.js?v=1748353626851"></script>
+
+<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
+</body>
+
+</html>

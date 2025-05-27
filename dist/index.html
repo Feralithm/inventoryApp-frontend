@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/main.css?v=1748353626851">
+</head>
+
+<body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
+  <script>
+    // variabel global
+    const API_URL = document.body.dataset.apiUrl;
+    let barangIdToDelete = null;
+  </script>
+<div id="app">
+
+<nav id="navbar-main" class="navbar is-fixed-top">
+  <div class="navbar-brand">
+    <a class="navbar-item mobile-aside-button">
+      <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+    </a>
+  </div>
+
+  <div class="relative inline-block text-left">
+    <button id="dropdownToggle"
+      class="flex items-center gap-2 px-2 py-1 rounded-md hover:bg-blue-400 focus:outline-none">
+      <img src="img/profil.png" alt="profil" class="w-8 h-8 rounded-full">
+      <span id="userLogin" class="text-sm font-medium text-gray-700"></span>
+      <i class="mdi mdi-chevron-down text-gray-500"></i>
+    </button>
+
+    <div id="dropdownMenu"
+      class="absolute right-2 mt-2 w-48 max-w-xs bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 hidden z-50">
+      <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        My Profile
+      </a>
+      <div class="border-t border-gray-200 my-1"></div>
+      <button onclick="logout()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+        Log Out
+      </button>
+    </div>
+  </div>
+
+  </div>
+  </div>
+</nav>
+
+<script>
+  async function getUser() {
+    try {
+      const response = await fetch(`${API_URL}/getUser`,
+        {
+          method: 'GET',
+          credentials: "include"
+        })
+
+      if (!response.ok) {
+        window.location.href = 'login.html'
+        alert('Silahkan Login dulu')
+      }
+      const result = await response.json()
+      document.getElementById('userLogin').innerHTML = result.nama;
+    } catch (err) {
+      console.error('gagal mengambil data user', err)
+    }
+  }
+  getUser();
+</script>
+
+<script>
+  async function logout() {
+    try {
+      await fetch(`${API_URL}/logout`, {
+        method: "POST",
+        credentials: "include"
+      })
+      window.location.href = 'login.html'
+    } catch (err) {
+      console.log("gagal logout: " + err)
+    }
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('dropdownToggle');
+    const menu = document.getElementById('dropdownMenu');
+
+    // Toggle dropdown saat diklik
+    const toggleMenu = (e) => {
+      e.preventDefault();
+      menu.classList.toggle('hidden');
+    };
+
+    toggle.addEventListener('click', toggleMenu);
+    toggle.addEventListener('touchstart', toggleMenu);
+
+    // Tutup dropdown jika klik di luar
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('touchstart', (e) => {
+      if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+  });
+</script>
+<aside class="aside is-placed-left is-expanded">
+  <div class="aside-tools">
+    <div>
+      LA <b class="font-black">Store</b>
+    </div>
+  </div>
+  <div class="menu is-menu-main">
+    <p class="menu-label">Umum</p>
+    <ul class="menu-list">
+      <li class="active">
+        <a href="index.html">
+          <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
+          <span class="menu-item-label">Dashboard</span>
+        </a>
+      </li>
+    </ul>
+    <p class="menu-label">Lainnya</p>
+    <ul class="menu-list">
+      <li class="--set-active-tables-html">
+        <a href="laporan.html">
+          <span class="icon"><i class="mdi mdi-table"></i></span>
+          <span class="menu-item-label">Laporan</span>
+        </a>
+      </li>
+      <li class="--set-active-forms-html">
+        <a href="transaksi.html">
+          <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+          <span class="menu-item-label">Transaksi</span>
+        </a>
+      </li>
+      <li class="--set-active-profile-html">
+        <a href="profile.html">
+          <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+          <span class="menu-item-label">Akun</span>
+        </a>
+      </li>
+      <li>
+        <a class="dropdown">
+          <span class="icon"><i class="mdi mdi-view-list"></i></span>
+          <span class="menu-item-label">Barang</span>
+          <span class="icon"><i class="mdi mdi-plus"></i></span>
+        </a>
+        <ul>
+          <li>
+            <a href="tambahBarang.html">
+              <span>Tambah barang</span>
+            </a>
+          </li>
+          <li>
+            <a href="cariBarang.html">
+              <span>Cari data barang</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <p class="menu-label">Tentang</p>
+    <ul class="menu-list">
+      <li>
+        <a href="https://instagram.com/fddyyy_" class="has-icon">
+          <span class="icon"><i class="mdi mdi-help-circle"></i></span>
+          <span class="menu-item-label">About</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/fddyyy" class="has-icon">
+          <span class="icon"><i class="mdi mdi-github-circle"></i></span>
+          <span class="menu-item-label">GitHub</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>
+<section class="is-title-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <ul>
+      <li>Admin</li>
+      <li>Dashboard</li>
+    </ul>
+  </div>
+</section>
+<section class="is-hero-bar">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+    <h1 class="title">
+      Dashboard
+    </h1>
+  </div>
+</section>
+<section class="section main-section">
+  <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+    <div class="card">
+      <div class="card-content">
+        <div class="flex items-center justify-between">
+          <div class="widget-label">
+            <h3>
+              Total Stok
+            </h3>
+            <h1 id="stok">
+            </h1>
+          </div>
+          <span class="icon widget-icon text-blue-500"><i class="mdi mdi-database mdi-48px"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-content">
+        <div class="flex items-center justify-between">
+          <div class="widget-label">
+            <h3>
+              Penjualan
+            </h3>
+            <h1 id="penjualan">
+
+            </h1>
+          </div>
+          <span class="icon widget-icon text-green-500"><i class="mdi mdi-finance mdi-48px"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-content">
+        <div class="flex items-center justify-between">
+          <div class="widget-label">
+            <h3>
+              Barang Masuk
+            </h3>
+            <h1 id="barangMasuk">
+
+            </h1>
+          </div>
+          <span class="icon widget-icon text-yellow-500"><i class="mdi mdi-cart-plus mdi-48px"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="flex items-center justify-between">
+        <div class="widget-label">
+          <h3>
+            Barang Keluar
+          </h3>
+          <h1 id="barangKeluar">
+
+          </h1>
+        </div>
+        <span class="icon widget-icon text-yellow-500"><i class="mdi mdi-cart-minus mdi-48px"></i></span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="card mb-6">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-finance"></i></span>
+        Performa
+      </p>
+      <a href="" class="card-header-icon">
+        <span class="icon"><i class="mdi mdi-reload"></i></span>
+      </a>
+    </header>
+    <div class="card-content">
+      <div class="chart-area">
+        <div class="h-full">
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div></div>
+            </div>
+          </div>
+          <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor block"
+            style="height: 400px; width: 1197px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="notification blue">
+    <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+      <div>
+        <b>Barang Terbaru</b>
+      </div>
+      <button onclick="fetchBarang()" class="button green">
+        <span class="icon"><i class="mdi mdi-eye"></i></span>
+        <span>Tampilkan data</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card has-table">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-buffer"></i></span>
+        Table barang
+      </p>
+    </header>
+
+    <div class="card-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Stok</th>
+            <th>Harga</th>
+            <th>Kategori</th>
+            <th>Created</th>
+            <th>QRCode</th>
+          </tr>
+        </thead>
+        <tbody id="barang-table-body">
+
+        </tbody>
+      </table>
+      <div class="table-pagination">
+        <div class="flex items-center justify-between">
+          <div class="buttons" id="pagination-buttons"></div>
+          <small id="page-info"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  async function cetakQRLabelPDF() {
+    const { jsPDF } = window.jspdf;
+    const qrImage = document.getElementById("qrImage");
+
+    if (!qrImage || !qrImage.src) {
+      alert("QR Code belum tersedia.");
+      return;
+    }
+
+    const doc = new jsPDF({
+      orientation: "landscape", // Lebar lebih dulu
+      unit: "mm",
+      format: [50, 30] // Ukuran label: 50mm x 30mm
+    });
+
+    const imgWidth = 20; // ukuran QR di PDF
+    const imgHeight = 20;
+
+    // Posisi QR pertama
+    const x1 = 5;
+    const y1 = 5;
+
+    // Posisi QR kedua
+    const x2 = 25;
+    const y2 = 5;
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = qrImage.src;
+
+    img.onload = function () {
+      // Gambar dua QR di posisi berbeda
+      doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
+      doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
+
+      doc.save("label-qr.pdf");
+    };
+
+    img.onerror = function () {
+      alert("Gagal memuat gambar QR Code.");
+    };
+  }
+
+  async function getQr(id) {
+    try {
+      const res = await fetch(`${API_URL}/cetak-qr/${id}`, {
+        method: "GET",
+        credentials: "include"
+      });
+      const result = await res.json()
+      console.log(result)
+      const qrImage = document.getElementById("qrImage");
+      qrImage.src = result.qrCode
+      cetakQRLabelPDF();
+    } catch (err) {
+      console.log(err)
+      alert('gagal mencetak QR', + err.message)
+    }
+  }
+</script>
+<footer class="footer">
+  <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+    <div class="flex items-center justify-start space-x-3">
+      <div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div id="sample-modal" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Hapus barang</p>
+    </header>
+    <section class="modal-card-body">
+      <p>Apakah anda yakin ingin <b>Menghapus</b></p>
+      <p>barang ini?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button --jb-modal-close">Batal</button>
+      <button class="button red --jb-modal-close" onclick="deleteBarang()">Hapus</button>
+    </footer>
+  </div>
+</div>
+
+<div id="sample-modal-2" class="modal">
+  <div class="modal-background --jb-modal-close"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Gambar</p>
+    </header>
+    <section class="modal-card-body">
+      <p>Gambar <b>tidak tersedia</b></p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button blue --jb-modal-close">Kembali</button>
+    </footer>
+  </div>
+</div>
+</div>
+
+<!-- Scripts below are for demo only -->
+<script type="text/javascript" src="js/main.min.js?v=1748353626851"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<script type="text/javascript" src="js/chart.sample.min.js"></script>
+
+<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+
+</body>
+
+</html>
