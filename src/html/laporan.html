@@ -206,6 +206,7 @@ ${detail.map(item => {
 Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
 =====================================
+
 -- Terima Kasih --
 `;
       const { jsPDF } = window.jspdf;
@@ -222,7 +223,7 @@ Keterangan: ${transaksi.keterangan || '-'}
       });
 
       doc.setFont("Courier", "normal");
-      doc.setFontSize(5);
+      doc.setFontSize(6);
 
       lines.forEach((line, index) => {
         const y = margin + (index + 1) * lineHeight;
