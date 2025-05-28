@@ -11,14 +11,15 @@
                 <div class="field">
                     <label class="label">Nama Barang</label>
                     <div class="control">
-                        <input type="text" name="nama" class="input" required placeholder="Contoh: Lemari MS 3 susun">
+                        <input type="text" autocomplete="off" name="nama" class="input" required
+                            placeholder="Contoh: Lemari MS 3 susun">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Deskripsi <small>(opsional)</small></label>
                     <div class="control">
-                        <textarea name="deskripsi" class="textarea"
+                        <textarea name="deskripsi" autocomplete="off" class="textarea"
                             placeholder="Deskripsi barang (boleh dikosongkan)"></textarea>
                     </div>
                 </div>
@@ -58,7 +59,8 @@
                 <div class="field">
                     <label class="label">URL Gambar <small>(opsional)</small></label>
                     <div class="control">
-                        <input type="url" name="gambar" class="input" placeholder="https://link-gambar.jpg">
+                        <input type="url" autocomplete="off" name="gambar" class="input"
+                            placeholder="https://link-gambar.jpg">
                     </div>
                 </div>
 
@@ -87,7 +89,6 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
     async function cetakQRLabelPDF() {
         const { jsPDF } = window.jspdf;
@@ -107,11 +108,9 @@
         const imgWidth = 20;
         const imgHeight = 20;
 
-        // Posisi QR pertama
         const x1 = 5;
         const y1 = 5;
 
-        // Posisi QR kedua
         const x2 = 25;
         const y2 = 5;
 
@@ -120,7 +119,6 @@
         img.src = qrImage.src;
 
         img.onload = function () {
-            // Gambar dua QR di posisi berbeda
             doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
             doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
 

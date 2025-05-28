@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1748401545663">
+  <link rel="stylesheet" href="css/main.css?v=1748446764086">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -213,14 +213,15 @@
                 <div class="field">
                     <label class="label">Nama Barang</label>
                     <div class="control">
-                        <input type="text" name="nama" class="input" required placeholder="Contoh: Lemari MS 3 susun">
+                        <input type="text" autocomplete="off" name="nama" class="input" required
+                            placeholder="Contoh: Lemari MS 3 susun">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Deskripsi <small>(opsional)</small></label>
                     <div class="control">
-                        <textarea name="deskripsi" class="textarea"
+                        <textarea name="deskripsi" autocomplete="off" class="textarea"
                             placeholder="Deskripsi barang (boleh dikosongkan)"></textarea>
                     </div>
                 </div>
@@ -260,7 +261,8 @@
                 <div class="field">
                     <label class="label">URL Gambar <small>(opsional)</small></label>
                     <div class="control">
-                        <input type="url" name="gambar" class="input" placeholder="https://link-gambar.jpg">
+                        <input type="url" autocomplete="off" name="gambar" class="input"
+                            placeholder="https://link-gambar.jpg">
                     </div>
                 </div>
 
@@ -289,7 +291,6 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
     async function cetakQRLabelPDF() {
         const { jsPDF } = window.jspdf;
@@ -309,11 +310,9 @@
         const imgWidth = 20;
         const imgHeight = 20;
 
-        // Posisi QR pertama
         const x1 = 5;
         const y1 = 5;
 
-        // Posisi QR kedua
         const x2 = 25;
         const y2 = 5;
 
@@ -322,7 +321,6 @@
         img.src = qrImage.src;
 
         img.onload = function () {
-            // Gambar dua QR di posisi berbeda
             doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
             doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
 
@@ -420,7 +418,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1748401545663"></script>
+<script type="text/javascript" src="js/main.min.js?v=1748446764086"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
