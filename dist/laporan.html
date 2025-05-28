@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Laporan</title>
-  <link rel="stylesheet" href="css/main.css?v=1748401329151">
+  <link rel="stylesheet" href="css/main.css?v=1748401545663">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -429,15 +429,15 @@ Keterangan: ${transaksi.keterangan || '-'}
       doc.setFont("Courier", "normal");
       doc.setFontSize(5);
 
-      // lines.forEach((line, index) => {
-      //   const y = margin + (index + 1) * lineHeight;
+      lines.forEach((line, index) => {
+        const y = margin + (index + 1) * lineHeight;
 
-      //   if (index === 0 || line.includes('-- Terima Kasih --')) {
-      //     doc.text(line.trim(), 25, y, { align: 'center' });
-      //   } else {
-      //     doc.text(line, margin, y);
-      //   }
-      // });
+        if (index === 0 || line.includes('-- Terima Kasih --')) {
+          doc.text(line.trim(), 25, y, { align: 'center' });
+        } else {
+          doc.text(line, margin, y);
+        }
+      });
 
       doc.save(`Struk-Transaksi-${transaksi.id}.pdf`);
     } catch (err) {
@@ -487,7 +487,7 @@ Keterangan: ${transaksi.keterangan || '-'}
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1748401329151"></script>
+<script type="text/javascript" src="js/main.min.js?v=1748401545663"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
