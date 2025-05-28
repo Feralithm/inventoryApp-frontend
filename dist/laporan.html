@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Laporan</title>
-  <link rel="stylesheet" href="css/main.css?v=1748367095490">
+  <link rel="stylesheet" href="css/main.css?v=1748400444457">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -384,32 +384,33 @@
 
       let struk = `
 -Toko Nurlinda-
-========= DETAIL TRANSAKSI =========
+======= DETAIL TRANSAKSI =======
 ID        : ${transaksi.id}
 Jenis     : ${transaksi.jenis}
 Tanggal   : ${new Date(transaksi.created_at).toLocaleString('id-ID')}
-------------------------------------
-Nama Barang      Jumlah     Harga
-------------------------------------
+-------------------------------
+Nama Barang   Jumlah     Harga
+-------------------------------
 ${detail.map(item => {
         const maxNamaLength = 16;
         let nama = item.nama.length > maxNamaLength
           ? item.nama.substring(0, maxNamaLength - 3) + '...'
           : item.nama.padEnd(maxNamaLength);
 
-        const jumlah = item.jumlah.toString().padStart(6);
+        const jumlah = item.jumlah.toString().padStart(4);
 
         const hargaStr = `Rp${item.harga.toLocaleString('id-ID')}`;
-        const harga = hargaStr.padStart(13);
+        const harga = hargaStr.padStart(10);
 
         return `${nama}${jumlah}${harga}`;
       }).join('\n')}
-------------------------------------
+------------------------------
 Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
-====================================
+==============================
 -- Terima Kasih --
-
+-
+-
 `;
       const { jsPDF } = window.jspdf;
       const margin = 2;
@@ -485,7 +486,7 @@ Keterangan: ${transaksi.keterangan || '-'}
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1748367095490"></script>
+<script type="text/javascript" src="js/main.min.js?v=1748400444457"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

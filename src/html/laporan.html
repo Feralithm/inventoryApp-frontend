@@ -182,32 +182,33 @@
 
       let struk = `
 -Toko Nurlinda-
-========= DETAIL TRANSAKSI =========
+======= DETAIL TRANSAKSI =======
 ID        : ${transaksi.id}
 Jenis     : ${transaksi.jenis}
 Tanggal   : ${new Date(transaksi.created_at).toLocaleString('id-ID')}
-------------------------------------
-Nama Barang      Jumlah     Harga
-------------------------------------
+-------------------------------
+Nama Barang   Jumlah     Harga
+-------------------------------
 ${detail.map(item => {
         const maxNamaLength = 16;
         let nama = item.nama.length > maxNamaLength
           ? item.nama.substring(0, maxNamaLength - 3) + '...'
           : item.nama.padEnd(maxNamaLength);
 
-        const jumlah = item.jumlah.toString().padStart(6);
+        const jumlah = item.jumlah.toString().padStart(4);
 
         const hargaStr = `Rp${item.harga.toLocaleString('id-ID')}`;
-        const harga = hargaStr.padStart(13);
+        const harga = hargaStr.padStart(10);
 
         return `${nama}${jumlah}${harga}`;
       }).join('\n')}
-------------------------------------
+------------------------------
 Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
-====================================
+==============================
 -- Terima Kasih --
-
+-
+-
 `;
       const { jsPDF } = window.jspdf;
       const margin = 2;
