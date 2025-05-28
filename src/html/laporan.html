@@ -181,7 +181,7 @@
       const total = transaksi.total;
 
       let struk = `
--Toko Nurlinda-
+-------Toko Nurlinda----------
 ======= DETAIL TRANSAKSI =======
 ID        : ${transaksi.id}
 Jenis     : ${transaksi.jenis}
@@ -195,7 +195,7 @@ ${detail.map(item => {
           ? item.nama.substring(0, maxNamaLength - 3) + '...'
           : item.nama.padEnd(maxNamaLength);
 
-        const jumlah = item.jumlah.toString().padStart(4);
+        const jumlah = item.jumlah.toString().padStart(3);
 
         const hargaStr = `Rp${item.harga.toLocaleString('id-ID')}`;
         const harga = hargaStr.padStart(10);
@@ -206,7 +206,8 @@ ${detail.map(item => {
 Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
 ==============================
--- Terima Kasih --
+------- Terima Kasih ---------
+-
 -
 -
 `;
@@ -226,15 +227,15 @@ Keterangan: ${transaksi.keterangan || '-'}
       doc.setFont("Courier", "normal");
       doc.setFontSize(5);
 
-      lines.forEach((line, index) => {
-        const y = margin + (index + 1) * lineHeight;
+      // lines.forEach((line, index) => {
+      //   const y = margin + (index + 1) * lineHeight;
 
-        if (index === 0 || line.includes('-- Terima Kasih --')) {
-          doc.text(line.trim(), 25, y, { align: 'center' });
-        } else {
-          doc.text(line, margin, y);
-        }
-      });
+      //   if (index === 0 || line.includes('-- Terima Kasih --')) {
+      //     doc.text(line.trim(), 25, y, { align: 'center' });
+      //   } else {
+      //     doc.text(line, margin, y);
+      //   }
+      // });
 
       doc.save(`Struk-Transaksi-${transaksi.id}.pdf`);
     } catch (err) {
