@@ -100,7 +100,7 @@ const itemsPerPage = 5;
 
 async function fetchBarang() {
   try {
-      const res = await fetch(`${API_URL}/barang`,
+      const res = await fetch(`${API_URL}/barang/new`,
         {
           method: "GET",
           credentials: "include"

@@ -121,7 +121,7 @@ function _fetchBarang() {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
-          return fetch("".concat(API_URL, "/barang"), {
+          return fetch("".concat(API_URL, "/barang/new"), {
             method: "GET",
             credentials: "include"
           });
