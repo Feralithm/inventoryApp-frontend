@@ -178,4 +178,3 @@ async function fetchBarang() {
       container.appendChild(btn);
     }
   }
-

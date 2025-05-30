@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/main.css?v=1748446764086">
+  <link rel="stylesheet" href="css/main.css?v=1748603722767">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -305,6 +305,10 @@
         <span class="icon"><i class="mdi mdi-eye"></i></span>
         <span>Tampilkan data</span>
       </button>
+      <button onclick="exportBarang()" class="button green">
+        <span class="icon"><i class="mdi mdi-download"></i></span>
+        <span>Export barang</span>
+      </button>
     </div>
   </div>
 
@@ -405,6 +409,22 @@
     }
   }
 </script>
+
+<script>
+  async function exportBarang() {
+    try {
+      const res = fetch(`${API_URL}/export/barang`, {
+        method: "GET",
+        credentials: "include"
+      })
+      if (!res.ok) {
+        alert(res.message)
+      }
+    } catch (err) {
+      console.error(err + 'Gagal export data  barang')
+    }
+  }
+</script>
 <footer class="footer">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
     <div class="flex items-center justify-start space-x-3">
@@ -447,7 +467,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1748446764086"></script>
+<script type="text/javascript" src="js/main.min.js?v=1748603722767"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script type="text/javascript" src="js/chart.sample.min.js"></script>
