@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1748607281594">
+  <link rel="stylesheet" href="css/main.css?v=1748614168791">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -246,6 +246,7 @@
 
         </div>
 
+        <select id="cameraSelect"></select>
         <div id="qr-reader" style="width: 300px; margin-top: 1rem;"></div>
 
         <hr>
@@ -266,7 +267,7 @@
 
 <!-- fungsi scan dan tambah barang -->
 <script>
-
+  let currentCameraId = null;
   let html5QrCode;
   let barangTerakhir = null;
   let barangIndex = 0;
@@ -277,59 +278,89 @@
       html5QrCode = new Html5Qrcode("qr-reader");
     }
 
+    if (!currentCameraId) {
+      alert("Pilih kamera terlebih dahulu.");
+      return;
+    }
+
+    html5QrCode.start(
+      currentCameraId,
+      {
+        fps: 10,
+        qrbox: 250
+      },
+      qrCodeMessage => {
+        try {
+          let barang_id = null;
+          let harga = null;
+
+          // Coba dulu parse sebagai JSON
+          try {
+            const data = JSON.parse(qrCodeMessage);
+            barang_id = data.barang_id;
+            harga = data.harga;
+          } catch (e) {
+            // Kalau gagal, coba parsing manual dari teks
+            const lines = qrCodeMessage.split('\n');
+            lines.forEach(line => {
+              if (line.toLowerCase().includes("id:")) {
+                barang_id = parseInt(line.split(':')[1].trim());
+              } else if (line.toLowerCase().includes("harga:")) {
+                const hargaStr = line.split(':')[1].replace(/[^\d]/g, '');
+                harga = parseInt(hargaStr);
+              }
+            });
+          }
+
+          if (barang_id && harga) {
+            if (barangTerakhir) {
+              barangTerakhir.querySelector("input[name='barang_id']").value = barang_id;
+              barangTerakhir.querySelector("input[name='harga']").value = harga;
+              alert("Scan berhasil untuk ID: " + barang_id);
+              barangTerakhir = null;
+            }
+          } else {
+            alert("QR tidak valid atau data tidak lengkap.");
+          }
+
+        } catch (err) {
+          alert("Gagal memproses QR Code");
+        }
+      },
+      errorMessage => {
+        // abaikan error scanning
+      }
+    );
+  }
+
+
+  function initCameraOptions() {
     Html5Qrcode.getCameras().then(cameras => {
       if (cameras && cameras.length) {
-        html5QrCode.start(
-          cameras[0].id,
-          {
-            fps: 10,
-            qrbox: 250
-          },
-          qrCodeMessage => {
-            try {
-              let barang_id = null;
-              let harga = null;
+        const select = document.getElementById("cameraSelect");
+        select.innerHTML = "";
 
-              // Coba dulu parse sebagai JSON
-              try {
-                const data = JSON.parse(qrCodeMessage);
-                barang_id = data.barang_id;
-                harga = data.harga;
-              } catch (e) {
-                // Kalau gagal, coba parsing manual dari teks
-                const lines = qrCodeMessage.split('\n');
-                lines.forEach(line => {
-                  if (line.toLowerCase().includes("id:")) {
-                    barang_id = parseInt(line.split(':')[1].trim());
-                  } else if (line.toLowerCase().includes("harga:")) {
-                    const hargaStr = line.split(':')[1].replace(/[^\d]/g, '');
-                    harga = parseInt(hargaStr);
-                  }
-                });
-              }
+        cameras.forEach(camera => {
+          const option = document.createElement("option");
+          option.value = camera.id;
+          option.text = camera.label || `Kamera ${select.length + 1}`;
+          select.appendChild(option);
+        });
 
-              if (barang_id && harga) {
-                if (barangTerakhir) {
-                  barangTerakhir.querySelector("input[name='barang_id']").value = barang_id;
-                  barangTerakhir.querySelector("input[name='harga']").value = harga;
-                  alert("Scan berhasil untuk ID: " + barang_id);
-                  barangTerakhir = null;
-                }
-              } else {
-                alert("QR tidak valid atau data tidak lengkap.");
-              }
-
-            } catch (err) {
-              alert("Gagal memproses QR Code");
-            }
-          },
-          errorMessage => {
-            // abaikan error scanning
-          }
-        );
+        currentCameraId = cameras[0].id;
+      } else {
+        alert("Tidak ada kamera ditemukan.");
       }
+    }).catch(err => {
+      alert("Gagal mengambil kamera: " + err);
     });
   }
+
+
+  document.getElementById("cameraSelect").addEventListener("change", function () {
+    currentCameraId = this.value;
+  });
+
 
 
   function tambahBarang() {
@@ -497,7 +528,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1748607281594"></script>
+<script type="text/javascript" src="js/main.min.js?v=1748614168791"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
