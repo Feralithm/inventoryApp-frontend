@@ -103,10 +103,10 @@
         <span class="icon"><i class="mdi mdi-eye"></i></span>
         <span>Tampilkan data</span>
       </button>
-      <button onclick="exportBarang()" class="button green">
+      <a id="exportBarangLink" download class="button green">
         <span class="icon"><i class="mdi mdi-download"></i></span>
         <span>Export barang</span>
-      </button>
+      </a>
     </div>
   </div>
 
@@ -204,22 +204,6 @@
     } catch (err) {
       console.log(err)
       alert('gagal mencetak QR', + err.message)
-    }
-  }
-</script>
-
-<script>
-  async function exportBarang() {
-    try {
-      const res = fetch(`${API_URL}/export/barang`, {
-        method: "GET",
-        credentials: "include"
-      })
-      if (!res.ok) {
-        alert(res.message)
-      }
-    } catch (err) {
-      console.error(err + 'Gagal export data  barang')
     }
   }
 </script>
