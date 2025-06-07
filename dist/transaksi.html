@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1749304763839">
+  <link rel="stylesheet" href="css/main.css?v=1749305964190">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -271,6 +271,7 @@
   let html5QrCode;
   let barangTerakhir = null;
   let barangIndex = 0;
+  let debounceBarangTimeout;
 
   function mulaiScan() {
     const qrDiv = document.getElementById("qr-reader");
@@ -374,7 +375,7 @@
 
     row.innerHTML = `
       <div class="control is-expanded">
-        <input type="number" class="input" min="0" name="barang_id" id="id_barang" placeholder="ID Barang" oninput="getBarangById()" required>
+        <input type="number" class="input" min="0" name="barang_id" id="id_barang" placeholder="ID Barang" oninput="debouncedGetBarangById()" required>
       </div>
       <div class="control is-expanded">
         <input type="text" class="input" id="nama_barang" name="nama" placeholder="Nama Barang" required disabled>
@@ -396,19 +397,31 @@
     barangIndex++;
   };
 
+
+  function debouncedGetBarangById() {
+    clearTimeout(debounceBarangTimeout);
+    debounceBarangTimeout = setTimeout(getBarangById, 1000);
+  }
+
   async function getBarangById() {
+    const id_barang = document.getElementById('id_barang').value.trim();
+    if (!id_barang) return;
+
     try {
-      const id_barang = document.getElementById('id_barang').value;
       const res = await fetch(`${API_URL}/barang/${id_barang}`, {
         method: "GET",
         credentials: "include"
       });
 
+      if (!res.ok) throw new Error("Gagal ambil data");
+
       const data = await res.json();
-      document.getElementById('nama_barang').value = data.nama;
-      document.getElementById('harga_barang').value = data.harga;
+      document.getElementById('nama_barang').value = data.nama || '';
+      document.getElementById('harga_barang').value = data.harga || '';
     } catch (error) {
-      console.error(error)
+      console.error(error);
+      document.getElementById('nama_barang').value = '';
+      document.getElementById('harga_barang').value = '';
     }
   }
 
@@ -550,7 +563,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749304763839"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749305964190"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
