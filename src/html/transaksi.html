@@ -182,7 +182,7 @@
         <input type="number" min="0" class="input" name="jumlah" placeholder="Jumlah" required>
       </div>
       <div class="control">
-        <input type="number" min="0" class="input" id="harga_barang" name="harga" placeholder="Harga" required disabled>
+        <input type="number" min="0" class="input" id="harga_barang" name="harga" placeholder="Harga" required>
       </div>
       <div class="control">
         <button type="button" class="button is-danger" onclick="this.closest('.field').remove()">Hapus</button>
@@ -198,7 +198,7 @@
 
   function debouncedGetBarangById() {
     clearTimeout(debounceBarangTimeout);
-    debounceBarangTimeout = setTimeout(getBarangById, 1000);
+    debounceBarangTimeout = setTimeout(getBarangById, 1500);
   }
 
   async function getBarangById() {

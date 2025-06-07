@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1749305964190">
+  <link rel="stylesheet" href="css/main.css?v=1749307445078">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -384,7 +384,7 @@
         <input type="number" min="0" class="input" name="jumlah" placeholder="Jumlah" required>
       </div>
       <div class="control">
-        <input type="number" min="0" class="input" id="harga_barang" name="harga" placeholder="Harga" required disabled>
+        <input type="number" min="0" class="input" id="harga_barang" name="harga" placeholder="Harga" required>
       </div>
       <div class="control">
         <button type="button" class="button is-danger" onclick="this.closest('.field').remove()">Hapus</button>
@@ -400,7 +400,7 @@
 
   function debouncedGetBarangById() {
     clearTimeout(debounceBarangTimeout);
-    debounceBarangTimeout = setTimeout(getBarangById, 1000);
+    debounceBarangTimeout = setTimeout(getBarangById, 1500);
   }
 
   async function getBarangById() {
@@ -563,7 +563,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749305964190"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749307445078"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
