@@ -98,7 +98,6 @@
             barang_id = data.barang_id;
             harga = data.harga;
           } catch (e) {
-            // Kalau gagal, coba parsing manual dari teks
             const lines = qrCodeMessage.split('\n');
             lines.forEach(line => {
               if (line.toLowerCase().includes("id:")) {
@@ -113,7 +112,7 @@
           if (barang_id && harga) {
             if (barangTerakhir) {
               barangTerakhir.querySelector("input[name='barang_id']").value = barang_id;
-              barangTerakhir.querySelector("input[name='harga']").value = harga;
+              // barangTerakhir.querySelector("input[name='harga']").value = harga;
               alert("Scan berhasil untuk ID: " + barang_id);
               barangTerakhir = null;
             }
@@ -172,13 +171,16 @@
 
     row.innerHTML = `
       <div class="control is-expanded">
-        <input type="number" class="input" min="0" name="barang_id" placeholder="ID Barang" required>
+        <input type="number" class="input" min="0" name="barang_id" id="id_barang" placeholder="ID Barang" required>
+      </div>
+      <div class="control is-expanded">
+        <input type="text" class="input" id="nama_barang" name="nama" placeholder="Nama Barang" required disabled>
       </div>
       <div class="control">
         <input type="number" min="0" class="input" name="jumlah" placeholder="Jumlah" required>
       </div>
       <div class="control">
-        <input type="number" min="0" class="input" name="harga" placeholder="Harga" required>
+        <input type="number" min="0" class="input" id="harga_barang" name="harga" placeholder="Harga" required disabled>
       </div>
       <div class="control">
         <button type="button" class="button is-danger" onclick="this.closest('.field').remove()">Hapus</button>
@@ -188,9 +190,23 @@
     container.appendChild(row);
     barangTerakhir = row;
     barangIndex++;
+  };
+
+  async function getBarangById() {
+    try {
+      const id_barang = document.getElementById('id_barang').value;
+      const res = await fetch(`${API_URL}/barang/${id_barang}`, {
+        method: "GET",
+        credentials: "include"
+      });
+
+      const data = res.json()
+      document.getElementById('nama_barang').value = data.nama;
+      document.getElementById('harga_barang').value = data.harga;
+    } catch (error) {
+      console.error(error)
+    }
   }
-
-
 
   function resetFormTransaksi() {
     // Stop kamera jika aktif
@@ -238,12 +254,14 @@
 
     rows.forEach(row => {
       const barang_id = row.querySelector("input[name='barang_id']").value;
+      const barang_nama = row.querySelector("input[name='nama']").value;
       const jumlah = row.querySelector("input[name='jumlah']").value;
       const harga = row.querySelector("input[name='harga']").value;
 
       if (barang_id && jumlah && harga) {
         barangList.push({
           barang_id: parseInt(barang_id),
+          nama: barang_nama,
           jumlah: parseInt(jumlah),
           harga: parseInt(harga)
         });
