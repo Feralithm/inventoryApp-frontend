@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1749300558172">
+  <link rel="stylesheet" href="css/main.css?v=1749301303778">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -317,6 +317,7 @@
               // barangTerakhir.querySelector("input[name='harga']").value = harga;
               alert("Scan berhasil untuk ID: " + barang_id);
               barangTerakhir = null;
+              getBarangById();
             }
           } else {
             alert("QR tidak valid atau data tidak lengkap.");
@@ -403,6 +404,7 @@
       });
 
       const data = res.json()
+      console.log(data)
       document.getElementById('nama_barang').value = data.nama;
       document.getElementById('harga_barang').value = data.harga;
     } catch (error) {
@@ -548,7 +550,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749300558172"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749301303778"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
