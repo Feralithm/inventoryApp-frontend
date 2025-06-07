@@ -201,7 +201,7 @@
         credentials: "include"
       });
 
-      const data = res.json()
+      const data = await res.json()
       console.log(data)
       document.getElementById('nama_barang').value = data.nama;
       document.getElementById('harga_barang').value = data.harga;
