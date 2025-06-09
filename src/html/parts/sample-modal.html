@@ -19,13 +19,58 @@
   <div class="modal-background --jb-modal-close"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Gambar</p>
+      <p class="modal-card-title">Edit Data Barang</p>
     </header>
     <section class="modal-card-body">
-      <p>Gambar <b>tidak tersedia</b></p>
+      <form id="form-edit-barang">
+        <input type="hidden" id="edit-id">
+
+        <div class="field">
+          <label class="label">Nama Barang</label>
+          <div class="control">
+            <input class="input" type="text" id="edit-nama" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Deskripsi</label>
+          <div class="control">
+            <textarea class="textarea" id="edit-deskripsi"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Stok</label>
+          <div class="control">
+            <input class="input" type="number" id="edit-stok" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Harga</label>
+          <div class="control">
+            <input class="input" type="number" id="edit-harga" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Kategori</label>
+          <div class="control">
+            <input class="input" type="text" id="edit-kategori" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">URL Gambar</label>
+          <div class="control">
+            <input class="input" type="text" id="edit-gambar">
+          </div>
+        </div>
+      </form>
     </section>
     <footer class="modal-card-foot">
-      <button class="button blue --jb-modal-close">Kembali</button>
+      <button type="button" class="button is-success" onclick="submitEditBarang()">Simpan</button>
+      <button type="button" class="button --jb-modal-close">Batal</button>
     </footer>
   </div>
 </div>

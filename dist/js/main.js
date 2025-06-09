@@ -71,20 +71,20 @@ document.addEventListener('click', function (e) {
 // Button delete
 function deleteBarang() {
   return _deleteBarang.apply(this, arguments);
-} // fungsi fetch data barang halaman dashboard
+}
 function _deleteBarang() {
-  _deleteBarang = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
+  _deleteBarang = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
           if (barangIdToDelete) {
-            _context.next = 2;
+            _context2.next = 2;
             break;
           }
-          return _context.abrupt("return", alert("ID barang tidak ditemukan"));
+          return _context2.abrupt("return", alert("ID barang tidak ditemukan"));
         case 2:
-          _context.prev = 2;
-          _context.next = 5;
+          _context2.prev = 2;
+          _context2.next = 5;
           return fetch("".concat(API_URL, "/barang/").concat(barangIdToDelete), {
             method: 'DELETE',
             credentials: 'include'
@@ -92,20 +92,154 @@ function _deleteBarang() {
         case 5:
           barangIdToDelete = null;
           fetchBarang();
-          _context.next = 13;
+          _context2.next = 13;
           break;
         case 9:
-          _context.prev = 9;
-          _context.t0 = _context["catch"](2);
-          console.error(_context.t0);
+          _context2.prev = 9;
+          _context2.t0 = _context2["catch"](2);
+          console.error(_context2.t0);
           alert("Gagal menghapus data");
         case 13:
         case "end":
-          return _context.stop();
+          return _context2.stop();
       }
-    }, _callee, null, [[2, 9]]);
+    }, _callee2, null, [[2, 9]]);
   }));
   return _deleteBarang.apply(this, arguments);
+}
+document.addEventListener('click', /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+    var editBtn, _row$querySelector, row, id, res, d;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          editBtn = e.target.closest('.button.green.--jb-modal[data-target="sample-modal-2"]');
+          if (!editBtn) {
+            _context.next = 31;
+            break;
+          }
+          // Ambil data barang yang sedang ditampilkan di baris tersebut
+          row = editBtn.closest('tr');
+          if (row) {
+            _context.next = 5;
+            break;
+          }
+          return _context.abrupt("return");
+        case 5:
+          id = (_row$querySelector = row.querySelector('button[data-id]')) === null || _row$querySelector === void 0 ? void 0 : _row$querySelector.getAttribute('data-id');
+          if (id) {
+            _context.next = 8;
+            break;
+          }
+          return _context.abrupt("return");
+        case 8:
+          _context.prev = 8;
+          _context.next = 11;
+          return fetch("".concat(API_URL, "/barang/").concat(id), {
+            method: 'GET',
+            credentials: 'include'
+          });
+        case 11:
+          res = _context.sent;
+          if (res.ok) {
+            _context.next = 14;
+            break;
+          }
+          return _context.abrupt("return", alert('Data barang tidak ditemukan.'));
+        case 14:
+          _context.next = 16;
+          return res.json();
+        case 16:
+          d = _context.sent;
+          barangDataToEdit = d;
+
+          // Isi form
+          document.getElementById('edit-id').value = d.id;
+          document.getElementById('edit-nama').value = d.nama;
+          document.getElementById('edit-deskripsi').value = d.deskripsi || '';
+          document.getElementById('edit-stok').value = d.stok;
+          document.getElementById('edit-harga').value = d.harga;
+          document.getElementById('edit-kategori').value = d.kategori || '';
+          document.getElementById('edit-gambar').value = d.gambar || '';
+          _context.next = 31;
+          break;
+        case 27:
+          _context.prev = 27;
+          _context.t0 = _context["catch"](8);
+          console.error(_context.t0);
+          alert('Gagal memuat data barang.');
+        case 31:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[8, 27]]);
+  }));
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+function submitEditBarang() {
+  return _submitEditBarang.apply(this, arguments);
+} // fungsi fetch data barang halaman dashboard
+function _submitEditBarang() {
+  _submitEditBarang = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var id, data, res, result;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          id = document.getElementById('edit-id').value;
+          if (id) {
+            _context3.next = 3;
+            break;
+          }
+          return _context3.abrupt("return", alert("ID barang tidak valid."));
+        case 3:
+          data = {
+            nama: document.getElementById('edit-nama').value,
+            deskripsi: document.getElementById('edit-deskripsi').value,
+            stok: Number(document.getElementById('edit-stok').value),
+            harga: Number(document.getElementById('edit-harga').value),
+            kategori: document.getElementById('edit-kategori').value,
+            gambar: document.getElementById('edit-gambar').value
+          };
+          _context3.prev = 4;
+          _context3.next = 7;
+          return fetch("".concat(API_URL, "/barang/edit/").concat(id), {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(data)
+          });
+        case 7:
+          res = _context3.sent;
+          _context3.next = 10;
+          return res.json();
+        case 10:
+          result = _context3.sent;
+          if (res.ok) {
+            _context3.next = 13;
+            break;
+          }
+          return _context3.abrupt("return", alert(result.message || 'Gagal mengedit barang.'));
+        case 13:
+          barangDataToEdit = null;
+          fetchBarang(); // refresh table
+          _context3.next = 21;
+          break;
+        case 17:
+          _context3.prev = 17;
+          _context3.t0 = _context3["catch"](4);
+          console.error(_context3.t0);
+          alert("Gagal menyimpan perubahan.");
+        case 21:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[4, 17]]);
+  }));
+  return _submitEditBarang.apply(this, arguments);
 }
 var barangData = [];
 var currentPage = 1;
@@ -114,25 +248,25 @@ function fetchBarang() {
   return _fetchBarang.apply(this, arguments);
 }
 function _fetchBarang() {
-  _fetchBarang = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  _fetchBarang = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
     var res, data;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _context2.prev = 0;
-          _context2.next = 3;
+          _context4.prev = 0;
+          _context4.next = 3;
           return fetch("".concat(API_URL, "/barang/new"), {
             method: "GET",
             credentials: "include"
           });
         case 3:
-          res = _context2.sent;
-          _context2.next = 6;
+          res = _context4.sent;
+          _context4.next = 6;
           return res.json();
         case 6:
-          data = _context2.sent;
+          data = _context4.sent;
           if (Array.isArray(data)) {
-            _context2.next = 9;
+            _context4.next = 9;
             break;
           }
           throw new Error('Data barang tidak valid');
@@ -140,17 +274,17 @@ function _fetchBarang() {
           barangData = data;
           renderBarangPage(currentPage);
           renderPagination();
-          _context2.next = 17;
+          _context4.next = 17;
           break;
         case 14:
-          _context2.prev = 14;
-          _context2.t0 = _context2["catch"](0);
-          console.error('Gagal memuat data: ' + _context2.t0.message);
+          _context4.prev = 14;
+          _context4.t0 = _context4["catch"](0);
+          console.error('Gagal memuat data: ' + _context4.t0.message);
         case 17:
         case "end":
-          return _context2.stop();
+          return _context4.stop();
       }
-    }, _callee2, null, [[0, 14]]);
+    }, _callee4, null, [[0, 14]]);
   }));
   return _fetchBarang.apply(this, arguments);
 }
@@ -162,7 +296,7 @@ function renderBarangPage(page) {
   var pageData = barangData.slice(start, end);
   pageData.forEach(function (item) {
     var row = document.createElement('tr');
-    row.innerHTML = "\n        <td data-label=\"Id\">\n          ".concat(item.id, "\n        </td>\n        <td data-label=\"Nama\">").concat(item.nama, "</td>\n        <td data-label=\"Stok\">").concat(item.stok, "</td>\n        <td data-label=\"Harga\">Rp").concat(Number(item.harga).toLocaleString(), "</td>\n        <td data-label=\"Kategori\">").concat(item.kategori || '-', "</td>\n        <td data-label=\"Created\">\n          <small class=\"text-gray-500\">").concat(new Date(item.created_at).toLocaleDateString(), "</small>\n        </td>\n        <td data-label=\"Cetak-QR\">\n            <button onclick=\"getQr(").concat(item.id, ")\" class=\"max-w-xs button blue\">Print</button>\n            <img id=\"qrImage\" alt=\"QR Code\" class=\"hidden w-0 h-0\"/>\n        </td>\n        <td class=\"actions-cell\">\n          <div class=\"buttons right nowrap\">\n            <button class=\"button small green --jb-modal\" data-target=\"sample-modal-2\">\n              <span class=\"icon\"><i class=\"mdi mdi-eye\"></i></span>\n            </button>\n            <button data-id=\"").concat(item.id, "\" class=\"button small red --jb-modal\" data-target=\"sample-modal\">\n              <span class=\"icon\"><i class=\"mdi mdi-trash-can\"></i></span>\n            </button>\n          </div>\n        </td>\n      ");
+    row.innerHTML = "\n        <td data-label=\"Id\">\n          ".concat(item.id, "\n        </td>\n        <td data-label=\"Nama\">").concat(item.nama, "</td>\n        <td data-label=\"Stok\">").concat(item.stok, "</td>\n        <td data-label=\"Harga\">Rp").concat(Number(item.harga).toLocaleString(), "</td>\n        <td data-label=\"Kategori\">").concat(item.kategori || '-', "</td>\n        <td data-label=\"Created\">\n          <small class=\"text-gray-500\">").concat(new Date(item.created_at).toLocaleDateString(), "</small>\n        </td>\n        <td data-label=\"Cetak-QR\">\n            <button onclick=\"getQr(").concat(item.id, ")\" class=\"max-w-xs button blue\">Print</button>\n            <img id=\"qrImage\" alt=\"QR Code\" class=\"hidden w-0 h-0\"/>\n        </td>\n        <td class=\"actions-cell\">\n          <div class=\"buttons right nowrap\">\n            <button class=\"button small green --jb-modal\" data-target=\"sample-modal-2\">\n              <span class=\"icon\"><i class=\"mdi mdi-pencil\"></i></span>\n            </button>\n            <button data-id=\"").concat(item.id, "\" class=\"button small red --jb-modal\" data-target=\"sample-modal\">\n              <span class=\"icon\"><i class=\"mdi mdi-trash-can\"></i></span>\n            </button>\n          </div>\n        </td>\n      ");
     tbody.appendChild(row);
   });
   document.getElementById('page-info').textContent = "Page ".concat(page, " of ").concat(Math.ceil(barangData.length / itemsPerPage));
