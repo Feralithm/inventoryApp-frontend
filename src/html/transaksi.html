@@ -198,7 +198,7 @@
 
   function debouncedGetBarangById(input) {
     clearTimeout(debounceBarangTimeout);
-    debounceBarangTimeout = setTimeout(getBarangById(input), 1500);
+    debounceBarangTimeout = setTimeout(() => getBarangById(input), 1500);
   }
 
   async function getBarangById(input) {
@@ -206,8 +206,8 @@
     if (!id_barang) return;
 
     const row = input.closest('.field');
-    const namaInput = row.querySelector('.nama-barang');
-    const hargaInput = row.querySelector('.harga-barang');
+    const namaInput = row.querySelector('.nama_barang');
+    const hargaInput = row.querySelector('.harga_barang');
 
     try {
       const res = await fetch(`${API_URL}/barang/${id_barang}`, {
