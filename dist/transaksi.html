@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1749559959624">
+  <link rel="stylesheet" href="css/main.css?v=1749560610492">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -288,33 +288,43 @@
       currentCameraId,
       {
         fps: 10,
-        qrbox: 250
+        qrbox: { width: 250, height: 100 } // Cocok untuk barcode 1 dimensi
       },
       qrCodeMessage => {
+        // Debounce supaya tidak membaca berulang kali
+        if (debounceBarangTimeout) return;
+
+        debounceBarangTimeout = setTimeout(() => {
+          debounceBarangTimeout = null;
+        }, 2000); // 2 detik jeda antar scan
+
         try {
-          let barang_id = qrCodeMessage;
+          const barang_id = qrCodeMessage.trim();
 
-
-          if (barang_id) {
+          if (barang_id && /^\d+$/.test(barang_id)) {
             if (barangTerakhir) {
               barangTerakhir.querySelector("input[name='barang_id']").value = barang_id;
-              // barangTerakhir.querySelector("input[name='harga']").value = harga;
               alert("Scan berhasil untuk ID: " + barang_id);
-              barangTerakhir = null;
               getBarangById();
+              barangTerakhir = null;
+            } else {
+              alert("Elemen 'barangTerakhir' belum ditentukan.");
             }
           } else {
-            alert("QR tidak valid atau data tidak lengkap.");
+            alert("QR/Barcode tidak valid. Pastikan hanya berisi angka ID.");
           }
 
         } catch (err) {
-          alert("Gagal memproses QR Code");
+          alert("Gagal memproses QR Code: " + err.message);
         }
       },
       errorMessage => {
-        // abaikan error scanning
+        // Error selama scanning, biasanya bisa diabaikan
+        console.warn("Scan error: ", errorMessage);
       }
-    );
+    ).catch(err => {
+      alert("Gagal memulai kamera: " + err);
+    });
   }
 
 
@@ -603,7 +613,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749559959624"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749560610492"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
