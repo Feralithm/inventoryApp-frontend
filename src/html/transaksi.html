@@ -173,16 +173,16 @@
 
     row.innerHTML = `
       <div class="control is-expanded">
-        <input type="number" class="input" min="0" name="barang_id" id="id_barang" placeholder="ID Barang" oninput="debouncedGetBarangById()" required>
+        <input type="number" class="input id_barang" min="0" name="barang_id" placeholder="ID Barang" oninput="debouncedGetBarangById(this)" required>
       </div>
       <div class="control is-expanded">
-        <input type="text" class="input" id="nama_barang" name="nama" placeholder="Nama Barang" required disabled>
+        <input type="text" class="input nama_barang" name="nama" placeholder="Nama Barang" required disabled>
       </div>
       <div class="control">
         <input type="number" min="0" class="input" name="jumlah" placeholder="Jumlah" required>
       </div>
       <div class="control">
-        <input type="number" min="0" class="input" id="harga_barang" name="harga" placeholder="Harga" required>
+        <input type="number" min="0" class="input harga_barang" name="harga" placeholder="Harga" required>
       </div>
       <div class="control">
         <button type="button" class="button is-danger" onclick="this.closest('.field').remove()">Hapus</button>
@@ -196,14 +196,18 @@
   };
 
 
-  function debouncedGetBarangById() {
+  function debouncedGetBarangById(input) {
     clearTimeout(debounceBarangTimeout);
-    debounceBarangTimeout = setTimeout(getBarangById, 1500);
+    debounceBarangTimeout = setTimeout(getBarangById(input), 1500);
   }
 
-  async function getBarangById() {
-    const id_barang = document.getElementById('id_barang').value.trim();
+  async function getBarangById(input) {
+    const id_barang = input.value.trim();
     if (!id_barang) return;
+
+    const row = input.closest('.field');
+    const namaInput = row.querySelector('.nama-barang');
+    const hargaInput = row.querySelector('.harga-barang');
 
     try {
       const res = await fetch(`${API_URL}/barang/${id_barang}`, {
@@ -214,12 +218,12 @@
       if (!res.ok) throw new Error("Gagal ambil data");
 
       const data = await res.json();
-      document.getElementById('nama_barang').value = data.nama || '';
-      document.getElementById('harga_barang').value = data.harga || '';
+      namaInput.value = data.nama || '';
+      hargaInput.value = data.harga || '';
     } catch (error) {
       console.error(error);
-      document.getElementById('nama_barang').value = '';
-      document.getElementById('harga_barang').value = '';
+      namaInput.value = '';
+      hargaInput.value = '';
     }
   }
 
