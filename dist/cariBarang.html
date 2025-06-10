@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cari Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1749554120150">
+  <link rel="stylesheet" href="css/main.css?v=1749554264725">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -335,11 +335,7 @@
             const d = await res.json();
             const row = document.createElement("tr");
             row.innerHTML = `
-            <td class="image-cell">
-                <div class="image">
-                    <img src="${d.gambar}" class="rounded-full" />
-                </div>
-            </td>
+            <td data-label="Id">${d.id}</td>
             <td data-label="Nama">${d.nama}</td>
             <td data-label="Stok">${d.stok}</td>
             <td data-label="Harga">Rp${Number(d.harga).toLocaleString()}</td>
@@ -471,7 +467,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749554120150"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749554264725"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

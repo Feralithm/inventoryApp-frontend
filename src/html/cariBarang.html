@@ -133,11 +133,7 @@
             const d = await res.json();
             const row = document.createElement("tr");
             row.innerHTML = `
-            <td class="image-cell">
-                <div class="image">
-                    <img src="${d.gambar}" class="rounded-full" />
-                </div>
-            </td>
+            <td data-label="Id">${d.id}</td>
             <td data-label="Nama">${d.nama}</td>
             <td data-label="Stok">${d.stok}</td>
             <td data-label="Harga">Rp${Number(d.harga).toLocaleString()}</td>
