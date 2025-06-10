@@ -6,15 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1749480938833">
+  <link rel="stylesheet" href="css/main.css?v=1749547926671">
 </head>
 
-<body data-api-url="http://localhost:3000">
+<body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
   <script>
     // variabel global
     const API_URL = document.body.dataset.apiUrl;
     let barangIdToDelete = null;
-    let barangDataToEdit = null;
   </script>
 <div id="app">
 
@@ -443,7 +442,15 @@
         <div class="field">
           <label class="label">Kategori</label>
           <div class="control">
-            <input class="input" type="text" id="edit-kategori" required>
+            <div class="select">
+              <select id="edit-kategori" name="kategori" required>
+                <option value="Parabot">Parabot</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Kosmetik">Kosmetik</option>
+                <option value="Perlengkapan">Perlengkapan</option>
+                <option value="Elektronik">Elektronik</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -456,7 +463,7 @@
       </form>
     </section>
     <footer class="modal-card-foot">
-      <button type="button" class="button is-success" onclick="submitEditBarang()">Simpan</button>
+      <button type="button" class="button green" onclick="submitEditBarang()">Simpan</button>
       <button type="button" class="button --jb-modal-close">Batal</button>
     </footer>
   </div>
@@ -464,7 +471,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749480938833"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749547926671"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

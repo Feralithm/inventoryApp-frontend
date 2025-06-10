@@ -6,15 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cari Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1749480938833">
+  <link rel="stylesheet" href="css/main.css?v=1749547926671">
 </head>
 
-<body data-api-url="http://localhost:3000">
+<body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
   <script>
     // variabel global
     const API_URL = document.body.dataset.apiUrl;
     let barangIdToDelete = null;
-    let barangDataToEdit = null;
   </script>
 <div id="app">
 
@@ -212,7 +211,7 @@
     </div>
 
     <div class="field mb-4">
-        <label class="label">Cari barang berdasarkan ID</label>
+        <label class="label">Cari dan edit barang berdasarkan ID</label>
         <div class="control">
             <input id="cari-barang-id" autocomplete="off" type="number" class="input" placeholder="Ketik ID barang..."
                 onkeydown="cekEnter(event)" />
@@ -302,16 +301,6 @@
                 <td data-label="Cetak-QR">
                     <a href="${API_URL}/cetak-qr/${d.id}" download class="text-blue-700 underline">Print</a>
                 </td>
-                <td class="actions-cell">
-                    <div class="buttons right nowrap">
-                        <button class="button small green --jb-modal" data-target="sample-modal-2">
-                            <span class="icon"><i class="mdi mdi-eye"></i></span>
-                        </button>
-                        <button data-id="${d.id}" class="button small red --jb-modal" data-target="sample-modal">
-                            <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                        </button>
-                    </div>
-                </td>
             `;
                 tbody.appendChild(row);
             });
@@ -329,7 +318,9 @@
 
             cariBarangId(id);
         }
-    }
+    };
+
+    // Fungsi cari barang berdasarkan id
     async function cariBarangId(id) {
         const tbody = document.getElementById('barang-table-body-search');
 
@@ -365,7 +356,7 @@
             </td>
             <td class="actions-cell">
                 <div class="buttons right nowrap">
-                    <button data-id="${d.id} class="button small green --jb-modal" data-target="sample-modal-2">
+                    <button class="button small green --jb-modal" data-target="sample-modal-2">
                         <span class="icon"><i class="mdi mdi-pencil"></i></span>
                     </button>
                     <button data-id="${d.id}" class="button small red --jb-modal" data-target="sample-modal">
@@ -375,10 +366,18 @@
             </td>
         `;
             tbody.appendChild(row);
+
+            document.getElementById('edit-id').value = d.id;
+            document.getElementById('edit-nama').value = d.nama;
+            document.getElementById('edit-deskripsi').value = d.deskripsi || '';
+            document.getElementById('edit-stok').value = d.stok;
+            document.getElementById('edit-harga').value = d.harga;
+            document.getElementById('edit-kategori').value = d.kategori || '';
+            document.getElementById('edit-gambar').value = d.gambar || '';
         } catch (err) {
             console.error(err);
         }
-    }
+    };
 
 </script>
 <footer class="footer">
@@ -447,7 +446,15 @@
         <div class="field">
           <label class="label">Kategori</label>
           <div class="control">
-            <input class="input" type="text" id="edit-kategori" required>
+            <div class="select">
+              <select id="edit-kategori" name="kategori" required>
+                <option value="Parabot">Parabot</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Kosmetik">Kosmetik</option>
+                <option value="Perlengkapan">Perlengkapan</option>
+                <option value="Elektronik">Elektronik</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -460,7 +467,7 @@
       </form>
     </section>
     <footer class="modal-card-foot">
-      <button type="button" class="button is-success" onclick="submitEditBarang()">Simpan</button>
+      <button type="button" class="button green" onclick="submitEditBarang()">Simpan</button>
       <button type="button" class="button --jb-modal-close">Batal</button>
     </footer>
   </div>
@@ -468,7 +475,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749480938833"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749547926671"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

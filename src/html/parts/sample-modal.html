@@ -56,7 +56,15 @@
         <div class="field">
           <label class="label">Kategori</label>
           <div class="control">
-            <input class="input" type="text" id="edit-kategori" required>
+            <div class="select">
+              <select id="edit-kategori" name="kategori" required>
+                <option value="Parabot">Parabot</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Kosmetik">Kosmetik</option>
+                <option value="Perlengkapan">Perlengkapan</option>
+                <option value="Elektronik">Elektronik</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -69,7 +77,7 @@
       </form>
     </section>
     <footer class="modal-card-foot">
-      <button type="button" class="button is-success" onclick="submitEditBarang()">Simpan</button>
+      <button type="button" class="button green" onclick="submitEditBarang()">Simpan</button>
       <button type="button" class="button --jb-modal-close">Batal</button>
     </footer>
   </div>

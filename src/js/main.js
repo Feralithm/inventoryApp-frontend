@@ -44,7 +44,7 @@ Array.from(document.getElementsByClassName('--jb-navbar-menu-toggle')).forEach(e
 
 
 /* Modal: open */
-document.addEventListener('click', function (e) {
+document.addEventListener('click', async function (e) {
   const btn = e.target.closest('.--jb-modal');
   if (btn) {
     const modalId = btn.getAttribute('data-target');
@@ -74,7 +74,6 @@ document.addEventListener('click', function (e) {
 
 });
 
-
 // Button delete
 async function deleteBarang() {
   if (!barangIdToDelete) return alert("ID barang tidak ditemukan");
@@ -90,74 +89,6 @@ async function deleteBarang() {
     alert("Gagal menghapus data");
   }
 }
-
-document.addEventListener('click', async (e) => {
-  const editBtn = e.target.closest('.button.green.--jb-modal[data-target="sample-modal-2"]');
-  if (editBtn) {
-    // Ambil data barang yang sedang ditampilkan di baris tersebut
-    const row = editBtn.closest('tr');
-    if (!row) return;
-
-    const id = row.querySelector('button[data-id]')?.getAttribute('data-id');
-    if (!id) return;
-
-    try {
-      const res = await fetch(`${API_URL}/barang/${id}`, {
-        method: 'GET',
-        credentials: 'include'
-      });
-      if (!res.ok) return alert('Data barang tidak ditemukan.');
-
-      const d = await res.json();
-      barangDataToEdit = d;
-
-      // Isi form
-      document.getElementById('edit-id').value = d.id;
-      document.getElementById('edit-nama').value = d.nama;
-      document.getElementById('edit-deskripsi').value = d.deskripsi || '';
-      document.getElementById('edit-stok').value = d.stok;
-      document.getElementById('edit-harga').value = d.harga;
-      document.getElementById('edit-kategori').value = d.kategori || '';
-      document.getElementById('edit-gambar').value = d.gambar || '';
-    } catch (err) {
-      console.error(err);
-      alert('Gagal memuat data barang.');
-    }
-  }
-});
-
-async function submitEditBarang() {
-  const id = document.getElementById('edit-id').value;
-  if (!id) return alert("ID barang tidak valid.");
-
-  const data = {
-    nama: document.getElementById('edit-nama').value,
-    deskripsi: document.getElementById('edit-deskripsi').value,
-    stok: Number(document.getElementById('edit-stok').value),
-    harga: Number(document.getElementById('edit-harga').value),
-    kategori: document.getElementById('edit-kategori').value,
-    gambar: document.getElementById('edit-gambar').value
-  };
-
-  try {
-    const res = await fetch(`${API_URL}/barang/edit/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(data)
-    });
-
-    const result = await res.json();
-    if (!res.ok) return alert(result.message || 'Gagal mengedit barang.');
-
-    barangDataToEdit = null;
-    fetchBarang(); // refresh table
-  } catch (err) {
-    console.error(err);
-    alert("Gagal menyimpan perubahan.");
-  }
-}
-
 
 // fungsi fetch data barang halaman dashboard
 let barangData = [];
@@ -181,6 +112,38 @@ async function fetchBarang() {
       renderPagination();
     } catch (err) {
       console.error('Gagal memuat data: ' + err.message);
+    }
+  }
+
+  //Fungsi submit edit data  barang
+  async function submitEditBarang() {
+    const id = document.getElementById('edit-id').value;
+    if (!id) return alert("ID barang tidak valid.");
+
+    const data = {
+      nama: document.getElementById('edit-nama').value,
+      deskripsi: document.getElementById('edit-deskripsi').value,
+      stok: Number(document.getElementById('edit-stok').value),
+      harga: Number(document.getElementById('edit-harga').value),
+      kategori: document.getElementById('edit-kategori').value,
+      gambar: document.getElementById('edit-gambar').value
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/barang/edit/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (!res.ok) return alert(result.message || 'Gagal mengedit barang.');
+      alert("Data Barang Berhasil di Ubah")
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+      alert("Gagal menyimpan perubahan.");
     }
   }
 
@@ -209,16 +172,6 @@ async function fetchBarang() {
         <td data-label="Cetak-QR">
             <button onclick="getQr(${item.id})" class="max-w-xs button blue">Print</button>
             <img id="qrImage" alt="QR Code" class="hidden w-0 h-0"/>
-        </td>
-        <td class="actions-cell">
-          <div class="buttons right nowrap">
-            <button class="button small green --jb-modal" data-target="sample-modal-2">
-              <span class="icon"><i class="mdi mdi-pencil"></i></span>
-            </button>
-            <button data-id="${item.id}" class="button small red --jb-modal" data-target="sample-modal">
-              <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-            </button>
-          </div>
         </td>
       `;
       tbody.appendChild(row);
