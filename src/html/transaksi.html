@@ -39,9 +39,6 @@
 
         <div class="field">
           <button type="button" class="button small green" onclick="tambahBarang()">+ Tambah Barang</button>
-          <button type="button" class="button small is-info" onclick="mulaiScan()">📷 Scan QR</button>
-          <button type="button" class="button small is-danger" onclick="tutupScan()">✖️ Tutup Kamera</button>
-
         </div>
 
         <select id="cameraSelect"></select>
@@ -61,100 +58,11 @@
   </div>
 </section>
 
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-
 <!-- fungsi scan dan tambah barang -->
 <script>
-  let currentCameraId = null;
-  let html5QrCode;
   let barangTerakhir = null;
   let barangIndex = 0;
   let debounceBarangTimeout;
-
-  function mulaiScan() {
-    const qrDiv = document.getElementById("qr-reader");
-    if (!html5QrCode) {
-      html5QrCode = new Html5Qrcode("qr-reader");
-    }
-
-    if (!currentCameraId) {
-      alert("Pilih kamera terlebih dahulu.");
-      return;
-    }
-
-    html5QrCode.start(
-      currentCameraId,
-      {
-        fps: 10,
-        qrbox: { width: 250, height: 100 } // Cocok untuk barcode 1 dimensi
-      },
-      qrCodeMessage => {
-        // Debounce supaya tidak membaca berulang kali
-        if (debounceBarangTimeout) return;
-
-        debounceBarangTimeout = setTimeout(() => {
-          debounceBarangTimeout = null;
-        }, 2000); // 2 detik jeda antar scan
-
-        try {
-          const barang_id = qrCodeMessage.trim();
-
-          if (barang_id && /^\d+$/.test(barang_id)) {
-            if (barangTerakhir) {
-              barangTerakhir.querySelector("input[name='barang_id']").value = barang_id;
-              alert("Scan berhasil untuk ID: " + barang_id);
-              getBarangById();
-              barangTerakhir = null;
-            } else {
-              alert("Elemen 'barangTerakhir' belum ditentukan.");
-            }
-          } else {
-            alert("QR/Barcode tidak valid. Pastikan hanya berisi angka ID.");
-          }
-
-        } catch (err) {
-          alert("Gagal memproses QR Code: " + err.message);
-        }
-      },
-      errorMessage => {
-        // Error selama scanning, biasanya bisa diabaikan
-        console.warn("Scan error: ", errorMessage);
-      }
-    ).catch(err => {
-      alert("Gagal memulai kamera: " + err);
-    });
-  }
-
-
-  function initCameraOptions() {
-    Html5Qrcode.getCameras().then(cameras => {
-      if (cameras && cameras.length) {
-        const select = document.getElementById("cameraSelect");
-        select.innerHTML = "";
-
-        cameras.forEach(camera => {
-          const option = document.createElement("option");
-          option.value = camera.id;
-          option.text = camera.label || `Kamera ${select.length + 1}`;
-          select.appendChild(option);
-        });
-
-        currentCameraId = cameras[0].id;
-      } else {
-        alert("Tidak ada kamera ditemukan.");
-      }
-    }).catch(err => {
-      alert("Gagal mengambil kamera: " + err);
-    });
-  }
-
-
-  document.getElementById("cameraSelect").addEventListener("change", function () {
-    currentCameraId = this.value;
-  });
-
-  window.addEventListener("load", initCameraOptions);
-
 
 
   function tambahBarang() {
@@ -191,7 +99,7 @@
 
   function debouncedGetBarangById(input) {
     clearTimeout(debounceBarangTimeout);
-    debounceBarangTimeout = setTimeout(() => getBarangById(input), 1500);
+    debounceBarangTimeout = setTimeout(() => getBarangById(input), 1000);
   }
 
   async function getBarangById(input) {
@@ -221,15 +129,6 @@
   }
 
   function resetFormTransaksi() {
-    // Stop kamera jika aktif
-    if (html5QrCode && html5QrCode._isScanning) {
-      html5QrCode.stop().then(() => {
-        document.getElementById("qr-reader").innerHTML = "";
-      }).catch(err => {
-        console.warn("Gagal stop kamera saat reset:", err);
-      });
-    }
-
     // Reset form
     document.getElementById("formTransaksi").reset();
 
@@ -239,16 +138,6 @@
     barangTerakhir = null;
   }
 
-
-  function tutupScan() {
-    if (html5QrCode) {
-      html5QrCode.stop().then(() => {
-        document.getElementById("qr-reader").innerHTML = "";
-      }).catch(err => {
-        console.error("Gagal menutup kamera:", err);
-      });
-    }
-  }
 
 </script>
 
