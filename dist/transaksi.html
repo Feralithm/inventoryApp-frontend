@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1749558679330">
+  <link rel="stylesheet" href="css/main.css?v=1749559959624">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -292,25 +292,8 @@
       },
       qrCodeMessage => {
         try {
-          let barang_id = null;
-          let harga = null;
+          let barang_id = qrCodeMessage;
 
-          // Coba dulu parse sebagai JSON
-          try {
-            const data = JSON.parse(qrCodeMessage);
-            barang_id = data.barang_id;
-            harga = data.harga;
-          } catch (e) {
-            const lines = qrCodeMessage.split('\n');
-            lines.forEach(line => {
-              if (line.toLowerCase().includes("id:")) {
-                barang_id = parseInt(line.split(':')[1].trim());
-              } else if (line.toLowerCase().includes("harga:")) {
-                const hargaStr = line.split(':')[1].replace(/[^\d]/g, '');
-                harga = parseInt(hargaStr);
-              }
-            });
-          }
 
           if (barang_id) {
             if (barangTerakhir) {
@@ -620,7 +603,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749558679330"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749559959624"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

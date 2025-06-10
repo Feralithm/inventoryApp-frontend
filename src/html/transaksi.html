@@ -90,25 +90,8 @@
       },
       qrCodeMessage => {
         try {
-          let barang_id = null;
-          let harga = null;
+          let barang_id = qrCodeMessage;
 
-          // Coba dulu parse sebagai JSON
-          try {
-            const data = JSON.parse(qrCodeMessage);
-            barang_id = data.barang_id;
-            harga = data.harga;
-          } catch (e) {
-            const lines = qrCodeMessage.split('\n');
-            lines.forEach(line => {
-              if (line.toLowerCase().includes("id:")) {
-                barang_id = parseInt(line.split(':')[1].trim());
-              } else if (line.toLowerCase().includes("harga:")) {
-                const hargaStr = line.split(':')[1].replace(/[^\d]/g, '');
-                harga = parseInt(hargaStr);
-              }
-            });
-          }
 
           if (barang_id) {
             if (barangTerakhir) {
