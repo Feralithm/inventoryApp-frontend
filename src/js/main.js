@@ -83,7 +83,8 @@ async function deleteBarang() {
       credentials: 'include'
     });
     barangIdToDelete = null;
-    fetchBarang();
+    alert("Data Barang Berhasil di Hapus")
+    window.location.reload();
   } catch (err) {
     console.error(err);
     alert("Gagal menghapus data");

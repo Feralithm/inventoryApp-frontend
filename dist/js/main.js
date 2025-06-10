@@ -105,19 +105,20 @@ function _deleteBarang() {
           });
         case 5:
           barangIdToDelete = null;
-          fetchBarang();
-          _context2.next = 13;
+          alert("Data Barang Berhasil di Hapus");
+          window.location.reload();
+          _context2.next = 14;
           break;
-        case 9:
-          _context2.prev = 9;
+        case 10:
+          _context2.prev = 10;
           _context2.t0 = _context2["catch"](2);
           console.error(_context2.t0);
           alert("Gagal menghapus data");
-        case 13:
+        case 14:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[2, 9]]);
+    }, _callee2, null, [[2, 10]]);
   }));
   return _deleteBarang.apply(this, arguments);
 }
