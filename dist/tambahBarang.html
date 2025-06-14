@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1749562477038">
+  <link rel="stylesheet" href="css/main.css?v=1749910878192">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -201,180 +201,179 @@
   </div>
 </section>
 <section class="section main-section">
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">
-                <span class="icon"><i class="mdi mdi-plus-box"></i></span>
-                Form Tambah Barang
-            </p>
-        </header>
-        <div class="card-content">
-            <form id="formTambahBarang">
-                <div class="field">
-                    <label class="label">Nama Barang</label>
-                    <div class="control">
-                        <input type="text" autocomplete="off" name="nama" class="input" required
-                            placeholder="Contoh: Lemari MS 3 susun">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Deskripsi <small>(opsional)</small></label>
-                    <div class="control">
-                        <textarea name="deskripsi" autocomplete="off" class="textarea"
-                            placeholder="Deskripsi barang (boleh dikosongkan)"></textarea>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Stok</label>
-                    <div class="control">
-                        <input type="number" min="0" name="stok" class="input" required placeholder="Contoh: 3">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Harga</label>
-                    <div class="control">
-                        <input type="number" min="0" name="harga" class="input" autocomplete="off" required
-                            placeholder="Contoh: 400000">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Kategori</label>
-                    <div class="control">
-                        <div class="select">
-                            <select name="kategori" required>
-                                <option value="">-- Pilih Kategori --</option>
-                                <option value="Parabot">Parabot</option>
-                                <option value="Aksesoris">Aksesoris</option>
-                                <option value="Kosmetik">Kosmetik</option>
-                                <option value="Perlengkapan">Perlengkapan</option>
-                                <option value="Elektronik">Elektronik</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="field">
-                    <label class="label">URL Gambar <small>(opsional)</small></label>
-                    <div class="control">
-                        <input type="url" autocomplete="off" name="gambar" class="input"
-                            placeholder="https://link-gambar.jpg">
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="field grouped">
-                    <div class="control">
-                        <button type="submit" class="button green">Simpan</button>
-                    </div>
-                    <div class="control">
-                        <button type="reset" class="button red">Reset</button>
-                    </div>
-                </div>
-            </form>
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-plus-box"></i></span>
+        Form Tambah Barang
+      </p>
+    </header>
+    <div class="card-content">
+      <form id="formTambahBarang">
+        <div class="field">
+          <label class="label">Nama Barang</label>
+          <div class="control">
+            <input type="text" autocomplete="off" name="nama" class="input" required
+              placeholder="Contoh: Lemari MS 3 susun">
+          </div>
         </div>
 
-        <div class="card-content">
-            <div id="qrSection" class="hidden mt-5 flex-col items-center">
-                <h2 class="text-xl font-semibold mb-4">QR Code Barang</h2>
-                <img id="qrImage" alt="QR Code" class="max-w-xs" />
-                <button onclick="cetakQRLabelPDF()" class="mt-4 button blue">Cetak PDF</button>
+        <div class="field">
+          <label class="label">Deskripsi <small>(opsional)</small></label>
+          <div class="control">
+            <textarea name="deskripsi" autocomplete="off" class="textarea"
+              placeholder="Deskripsi barang (boleh dikosongkan)"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Stok</label>
+          <div class="control">
+            <input type="number" min="0" name="stok" class="input" required placeholder="Contoh: 3">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Harga</label>
+          <div class="control">
+            <input type="number" min="0" name="harga" class="input" autocomplete="off" required
+              placeholder="Contoh: 400000">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Kategori</label>
+          <div class="control">
+            <div class="select">
+              <select name="kategori" required>
+                <option value="">-- Pilih Kategori --</option>
+                <option value="Parabot">Parabot</option>
+                <option value="Aksesoris">Aksesoris</option>
+                <option value="Kosmetik">Kosmetik</option>
+                <option value="Perlengkapan">Perlengkapan</option>
+                <option value="Elektronik">Elektronik</option>
+              </select>
             </div>
+          </div>
         </div>
+
+
+        <div class="field">
+          <label class="label">URL Gambar <small>(opsional)</small></label>
+          <div class="control">
+            <input type="url" autocomplete="off" name="gambar" class="input" placeholder="https://link-gambar.jpg">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="field grouped">
+          <div class="control">
+            <button type="submit" class="button green">Simpan</button>
+          </div>
+          <div class="control">
+            <button type="reset" class="button red">Reset</button>
+          </div>
+        </div>
+      </form>
     </div>
+
+    <div class="card-content">
+      <div id="qrSection" class="hidden mt-5 flex-col items-center">
+        <h2 class="text-xl font-semibold mb-4">QR Code Barang</h2>
+        <img id="qrImage" alt="QR Code" class="max-w-xs" />
+        <button onclick="cetakQRLabelPDF()" class="mt-4 button blue">Cetak PDF</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-    async function cetakQRLabelPDF() {
-        const { jsPDF } = window.jspdf;
-        const qrImage = document.getElementById("qrImage");
+  async function cetakQRLabelPDF() {
+    const { jsPDF } = window.jspdf;
+    const qrImage = document.getElementById("qrImage");
 
-        if (!qrImage || !qrImage.src) {
-            alert("QR Code belum tersedia.");
-            return;
-        }
-
-        const doc = new jsPDF({
-            orientation: "landscape",
-            unit: "mm",
-            format: [50, 30]
-        });
-
-        const imgWidth = 20;
-        const imgHeight = 20;
-
-        const x1 = 5;
-        const y1 = 5;
-
-        const x2 = 25;
-        const y2 = 5;
-
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.src = qrImage.src;
-
-        img.onload = function () {
-            doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
-            doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
-
-            doc.save("label-qr.pdf");
-        };
-
-        img.onerror = function () {
-            alert("Gagal memuat gambar QR Code.");
-        };
+    if (!qrImage || !qrImage.src) {
+      alert("QR Code belum tersedia.");
+      return;
     }
+
+    const doc = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: [50, 30]
+    });
+
+    const imgWidth = 20;
+    const imgHeight = 20;
+
+    const x1 = 5;
+    const y1 = 5;
+
+    const x2 = 25;
+    const y2 = 5;
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = qrImage.src;
+
+    img.onload = function () {
+      doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
+      doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
+
+      doc.save("label-qr.pdf");
+    };
+
+    img.onerror = function () {
+      alert("Gagal memuat gambar QR Code.");
+    };
+  }
 </script>
 
 <script>
-    document.getElementById("formTambahBarang").addEventListener("submit", async function (e) {
-        e.preventDefault();
+  document.getElementById("formTambahBarang").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-        const form = e.target;
+    const form = e.target;
 
-        const data = {
-            nama: form.nama.value,
-            deskripsi: form.deskripsi.value,
-            stok: parseInt(form.stok.value),
-            harga: parseInt(form.harga.value),
-            kategori: form.kategori.value,
-            gambar: form.gambar.value || null
-        };
+    const data = {
+      nama: form.nama.value,
+      deskripsi: form.deskripsi.value,
+      stok: parseInt(form.stok.value),
+      harga: parseInt(form.harga.value),
+      kategori: form.kategori.value,
+      gambar: form.gambar.value || null
+    };
 
-        try {
-            const res = await fetch(`${API_URL}/barang`, {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
+    try {
+      const res = await fetch(`${API_URL}/barang`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
-            const result = await res.json();
-            if (res.ok) {
-                alert("Barang berhasil ditambahkan!");
-                form.reset();
-                const qrSection = document.getElementById("qrSection");
-                const qrImage = document.getElementById("qrImage");
+      const result = await res.json();
+      if (res.ok) {
+        alert("Barang berhasil ditambahkan!");
+        form.reset();
+        const qrSection = document.getElementById("qrSection");
+        const qrImage = document.getElementById("qrImage");
 
-                qrImage.src = result.qrCode;
-                qrSection.classList.remove("hidden");
-                qrSection.classList.add("flex");
-            } else {
-                alert("Gagal: " + result.message);
-            }
-        } catch (err) {
-            alert("Terjadi kesalahan: " + err.message);
-        }
-    });
+        qrImage.src = result.qrCode;
+        qrSection.classList.remove("hidden");
+        qrSection.classList.add("flex");
+      } else {
+        alert("Gagal: " + result.message);
+      }
+    } catch (err) {
+      alert("Terjadi kesalahan: " + err.message);
+    }
+  });
 </script>
 <footer class="footer">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
@@ -471,7 +470,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749562477038"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749910878192"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

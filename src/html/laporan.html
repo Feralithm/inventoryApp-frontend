@@ -179,6 +179,37 @@
       const { transaksi, detail } = data;
       const total = transaksi.total;
 
+      //       let struk = `
+      // -------Toko Nurlinda----------
+      // ======= DETAIL TRANSAKSI =======
+      // ID        : ${transaksi.id}
+      // Jenis     : ${transaksi.jenis}
+      // Tanggal   : ${new Date(transaksi.created_at).toLocaleString('id-ID')}
+      // -------------------------------
+      // Nama Barang   Jumlah     Harga
+      // -------------------------------
+      // ${detail.map(item => {
+      //         const maxNamaLength = 16;
+      //         let nama = item.nama.length > maxNamaLength
+      //           ? item.nama.substring(0, maxNamaLength - 3) + '...'
+      //           : item.nama.padEnd(maxNamaLength);
+
+      //         const jumlah = item.jumlah.toString().padStart(3);
+
+      //         const hargaStr = `Rp${item.harga.toLocaleString('id-ID')}`;
+      //         const harga = hargaStr.padStart(10);
+
+      //         return `${nama}${jumlah}${harga}`;
+      //       }).join('\n')}
+      // ------------------------------
+      // Total     : Rp${total.toLocaleString('id-ID')}
+      // Keterangan: ${transaksi.keterangan || '-'}
+      // ==============================
+      // ------- Terima Kasih ---------
+      // -
+      // -
+      // -
+      // `;
       let struk = `
 -------Toko Nurlinda----------
 ======= DETAIL TRANSAKSI =======
@@ -186,30 +217,34 @@ ID        : ${transaksi.id}
 Jenis     : ${transaksi.jenis}
 Tanggal   : ${new Date(transaksi.created_at).toLocaleString('id-ID')}
 -------------------------------
-Nama Barang   Jumlah     Harga
+Nama Barang
+Harga x Jumlah     Total
 -------------------------------
 ${detail.map(item => {
-        const maxNamaLength = 16;
-        let nama = item.nama.length > maxNamaLength
+        const maxNamaLength = 24;
+        const nama = item.nama.length > maxNamaLength
           ? item.nama.substring(0, maxNamaLength - 3) + '...'
-          : item.nama.padEnd(maxNamaLength);
+          : item.nama;
 
-        const jumlah = item.jumlah.toString().padStart(3);
+        const harga = `Rp${item.harga.toLocaleString('id-ID')}`;
+        const subtotal = item.harga * item.jumlah;
+        const totalStr = `Rp${subtotal.toLocaleString('id-ID')}`;
 
-        const hargaStr = `Rp${item.harga.toLocaleString('id-ID')}`;
-        const harga = hargaStr.padStart(10);
+        const hargaJumlah = `${harga} x${item.jumlah}`.padEnd(18);
+        const total = totalStr.padStart(10);
 
-        return `${nama}${jumlah}${harga}`;
+        return `${nama}\n${hargaJumlah}${total}`;
       }).join('\n')}
-------------------------------
+-------------------------------
 Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
-==============================
-------- Terima Kasih ---------
+===============================
+------- Terima Kasih ----------
 -
 -
 -
 `;
+
       const { jsPDF } = window.jspdf;
       const margin = 2;
       const lineHeight = 3;
