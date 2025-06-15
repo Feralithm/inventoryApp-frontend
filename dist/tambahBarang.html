@@ -6,12 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1749950804785">
+  <link rel="stylesheet" href="css/main.css?v=1749953784396">
 </head>
 
-<!-- <body data-api-url="https://swine-relieved-urchin.ngrok-free.app"> -->
-
-<body data-api-url="http://localhost:3000">
+<body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
   <script>
     // variabel global
     const API_URL = document.body.dataset.apiUrl;
@@ -290,50 +288,6 @@
   </div>
 </section>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-  async function cetakQRLabelPDF() {
-    const { jsPDF } = window.jspdf;
-    const qrImage = document.getElementById("qrImage");
-
-    if (!qrImage || !qrImage.src) {
-      alert("QR Code belum tersedia.");
-      return;
-    }
-
-    const doc = new jsPDF({
-      orientation: "landscape",
-      unit: "mm",
-      format: [50, 30]
-    });
-
-    const imgWidth = 20;
-    const imgHeight = 20;
-
-    const x1 = 5;
-    const y1 = 5;
-
-    const x2 = 25;
-    const y2 = 5;
-
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = qrImage.src;
-
-    img.onload = function () {
-      doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
-      doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
-
-      doc.save("label-qr.pdf");
-    };
-
-    img.onerror = function () {
-      alert("Gagal memuat gambar QR Code.");
-    };
-  }
-</script>
-
 <script>
   document.getElementById("formTambahBarang").addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -363,12 +317,6 @@
       if (res.ok) {
         alert("Barang berhasil ditambahkan!");
         form.reset();
-        const qrSection = document.getElementById("qrSection");
-        const qrImage = document.getElementById("qrImage");
-
-        qrImage.src = result.qrCode;
-        qrSection.classList.remove("hidden");
-        qrSection.classList.add("flex");
       } else {
         alert("Gagal: " + result.message);
       }
@@ -472,7 +420,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1749950804785"></script>
+<script type="text/javascript" src="js/main.min.js?v=1749953784396"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

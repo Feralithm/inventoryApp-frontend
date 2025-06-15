@@ -145,67 +145,6 @@
   </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 <script>
   document.getElementById('exportBarangLink').setAttribute('href', `${API_URL}/export/barang`)
-  async function cetakQRLabelPDF() {
-    const { jsPDF } = window.jspdf;
-    const qrImage = document.getElementById("qrImage");
-
-    if (!qrImage || !qrImage.src) {
-      alert("QR Code belum tersedia.");
-      return;
-    }
-
-    const doc = new jsPDF({
-      orientation: "landscape", // Lebar lebih dulu
-      unit: "mm",
-      format: [50, 30] // Ukuran label: 50mm x 30mm
-    });
-
-    const imgWidth = 20; // ukuran QR di PDF
-    const imgHeight = 20;
-
-    // Posisi QR pertama
-    const x1 = 5;
-    const y1 = 5;
-
-    // Posisi QR kedua
-    const x2 = 25;
-    const y2 = 5;
-
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = qrImage.src;
-
-    img.onload = function () {
-      // Gambar dua QR di posisi berbeda
-      doc.addImage(img, "PNG", x1, y1, imgWidth, imgHeight);
-      doc.addImage(img, "PNG", x2, y2, imgWidth, imgHeight);
-
-      doc.save("label-qr.pdf");
-    };
-
-    img.onerror = function () {
-      alert("Gagal memuat gambar QR Code.");
-    };
-  }
-
-  async function getQr(id) {
-    try {
-      const res = await fetch(`${API_URL}/cetak-qr/${id}`, {
-        method: "GET",
-        credentials: "include"
-      });
-      const result = await res.json()
-      console.log(result)
-      const qrImage = document.getElementById("qrImage");
-      qrImage.src = result.qrCode
-      cetakQRLabelPDF();
-    } catch (err) {
-      console.log(err)
-      alert('gagal mencetak QR', + err.message)
-    }
-  }
 </script>
