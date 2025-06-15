@@ -221,7 +221,7 @@ Nama Barang
 Harga x Jumlah     Total
 -------------------------------
 ${detail.map(item => {
-        const maxNamaLength = 24;
+        const maxNamaLength = 29;
         const nama = item.nama.length > maxNamaLength
           ? item.nama.substring(0, maxNamaLength - 3) + '...'
           : item.nama;
@@ -240,7 +240,6 @@ Total     : Rp${total.toLocaleString('id-ID')}
 Keterangan: ${transaksi.keterangan || '-'}
 ===============================
 ------- Terima Kasih ----------
--
 -
 -
 `;
