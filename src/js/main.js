@@ -170,10 +170,6 @@ async function fetchBarang() {
         <td data-label="Created">
           <small class="text-gray-500">${new Date(item.created_at).toLocaleDateString()}</small>
         </td>
-        <td data-label="Cetak-QR">
-            <button onclick="getQr(${item.id})" class="max-w-xs button blue">Print</button>
-            <img id="qrImage" alt="QR Code" class="hidden w-0 h-0"/>
-        </td>
       `;
       tbody.appendChild(row);
     });

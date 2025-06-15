@@ -33,7 +33,6 @@
             <th>Harga</th>
             <th>Kategori</th>
             <th>Created</th>
-            <th>QRCode</th>
           </tr>
         </thead>
         <tbody id="barang-table-body-search">
@@ -92,9 +91,17 @@
                 <td data-label="Created">
                     <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
                 </td>
-                <td data-label="Cetak-QR">
-                    <a href="${API_URL}/cetak-qr/${d.id}" download class="text-blue-700 underline">Print</a>
-                </td>
+
+                <td class="actions-cell">
+                <div class="buttons right nowrap">
+                    <button class="button small green --jb-modal" data-target="sample-modal-2">
+                        <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                    </button>
+                    <button data-id="${d.id}" class="button small red --jb-modal" data-target="sample-modal">
+                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                    </button>
+                </div>
+            </td>
             `;
         tbody.appendChild(row);
       });
@@ -141,9 +148,7 @@
             <td data-label="Created">
                 <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
             </td>
-            <td data-label="Cetak-QR">
-                <a href="${API_URL}/cetak-qr/${d.id}" download class="text-blue-700 underline">Print</a>
-            </td>
+          
             <td class="actions-cell">
                 <div class="buttons right nowrap">
                     <button class="button small green --jb-modal" data-target="sample-modal-2">
