@@ -8,19 +8,11 @@
     </div>
   </div>
 
-  <div class="field mb-4">
-    <label class="label">Cari dan edit barang berdasarkan ID</label>
-    <div class="control">
-      <input id="cari-barang-id" autocomplete="off" type="number" class="input" placeholder="Ketik ID barang..."
-        onkeydown="cekEnter(event)" />
-    </div>
-  </div>
-
   <div class="card has-table">
     <header class="card-header">
       <p class="card-header-title">
         <span class="icon"><i class="mdi mdi-buffer"></i></span>
-        Table barang
+        Table Search Nama
       </p>
     </header>
     <div class="card-content">
@@ -36,7 +28,48 @@
             <th>Gambar</th>
           </tr>
         </thead>
-        <tbody id="barang-table-body-search">
+        <tbody id="barang-table-body-search-nama">
+          <!-- tabel barang -->
+        </tbody>
+      </table>
+      <div class="table-pagination">
+        <div class="flex items-center justify-between">
+          <div class="buttons" id="pagination-buttons"></div>
+          <small id="page-info"></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field mb-4">
+    <label class="label">Cari dan edit barang berdasarkan ID</label>
+    <div class="control">
+      <input id="cari-barang-id" autocomplete="off" type="number" class="input" placeholder="Ketik ID barang..."
+        onkeydown="cekEnter(event)" />
+    </div>
+  </div>
+
+  <div class="card has-table">
+    <header class="card-header">
+      <p class="card-header-title">
+        <span class="icon"><i class="mdi mdi-buffer"></i></span>
+        Table Search ID
+      </p>
+    </header>
+    <div class="card-content">
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Stok</th>
+            <th>Harga</th>
+            <th>Kategori</th>
+            <th>Created</th>
+            <th>Gambar</th>
+          </tr>
+        </thead>
+        <tbody id="barang-table-body-search-id">
           <!-- tabel barang -->
         </tbody>
       </table>
@@ -62,7 +95,7 @@
   }
 
   const filterBarang = debounce(async function (keyword) {
-    const tbody = document.getElementById("barang-table-body-search");
+    const tbody = document.getElementById("barang-table-body-search-nama");
 
     // Kalau kosong, kosongkan hasil
     if (keyword.trim() === "") {
@@ -117,7 +150,7 @@
 
   // Fungsi cari barang berdasarkan id
   async function cariBarangId(id) {
-    const tbody = document.getElementById('barang-table-body-search');
+    const tbody = document.getElementById('barang-table-body-search-id');
 
     tbody.innerHTML = "";
 
