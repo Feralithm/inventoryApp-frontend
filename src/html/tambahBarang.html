@@ -59,6 +59,8 @@
           <label class="label">Upload Gambar <small>(opsional)</small></label>
           <div class="control">
             <input type="file" accept="image/*" id="gambarUpload">
+            <p id="gambarUploadStatus" class="has-text-info mt-2 hidden">Mengupload gambar...</p>
+
           </div>
         </div>
 
@@ -126,16 +128,24 @@
     });
   }
 
+
   uploadInput.addEventListener("change", async function () {
     const file = uploadInput.files[0];
     if (!file) return;
 
-    const compressed = await compressImage(file, 800, 0.7);
+    uploadStatus.classList.remove("hidden");
+    uploadStatus.textContent = "📤 Mengupload gambar...";
 
     const formData = new FormData();
-    formData.append("image", compressed, file.name);
 
     try {
+      if (file.size < 100 * 1024) {
+        formData.append("image", file);
+      } else {
+        const compressed = await compressImage(file, 800, 0.7);
+        formData.append("image", compressed, file.name);
+      }
+
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formData,
@@ -145,13 +155,17 @@
       const result = await res.json();
       if (res.ok && result.url) {
         gambarUrlInput.value = result.url;
-        alert("Gambar berhasil diupload!");
+        uploadStatus.textContent = "✅ Gambar berhasil diupload!";
       } else {
-        alert("Upload gagal: " + result.message);
+        uploadStatus.textContent = "❌ Upload gagal: " + result.message;
       }
     } catch (err) {
-      alert("Upload error: " + err.message);
+      uploadStatus.textContent = "❌ Upload error: " + err.message;
     }
+
+    setTimeout(() => {
+      uploadStatus.classList.add("hidden");
+    }, 3000);
   });
 
 </script>

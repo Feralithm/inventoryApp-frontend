@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1750512240206">
+  <link rel="stylesheet" href="css/main.css?v=1750527362040">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -262,6 +262,8 @@
           <label class="label">Upload Gambar <small>(opsional)</small></label>
           <div class="control">
             <input type="file" accept="image/*" id="gambarUpload">
+            <p id="gambarUploadStatus" class="has-text-info mt-2 hidden">Mengupload gambar...</p>
+
           </div>
         </div>
 
@@ -329,16 +331,24 @@
     });
   }
 
+
   uploadInput.addEventListener("change", async function () {
     const file = uploadInput.files[0];
     if (!file) return;
 
-    const compressed = await compressImage(file, 800, 0.7);
+    uploadStatus.classList.remove("hidden");
+    uploadStatus.textContent = "📤 Mengupload gambar...";
 
     const formData = new FormData();
-    formData.append("image", compressed, file.name);
 
     try {
+      if (file.size < 100 * 1024) {
+        formData.append("image", file);
+      } else {
+        const compressed = await compressImage(file, 800, 0.7);
+        formData.append("image", compressed, file.name);
+      }
+
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
         body: formData,
@@ -348,13 +358,17 @@
       const result = await res.json();
       if (res.ok && result.url) {
         gambarUrlInput.value = result.url;
-        alert("Gambar berhasil diupload!");
+        uploadStatus.textContent = "✅ Gambar berhasil diupload!";
       } else {
-        alert("Upload gagal: " + result.message);
+        uploadStatus.textContent = "❌ Upload gagal: " + result.message;
       }
     } catch (err) {
-      alert("Upload error: " + err.message);
+      uploadStatus.textContent = "❌ Upload error: " + err.message;
     }
+
+    setTimeout(() => {
+      uploadStatus.classList.add("hidden");
+    }, 3000);
   });
 
 </script>
@@ -491,7 +505,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1750512240206"></script>
+<script type="text/javascript" src="js/main.min.js?v=1750527362040"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
