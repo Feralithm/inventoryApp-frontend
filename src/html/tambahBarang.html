@@ -104,7 +104,7 @@
       stok: parseInt(form.stok.value),
       harga: parseInt(form.harga.value),
       kategori: form.kategori.value,
-      gambar: form.gambar.value || null
+      gambar: form.querySelector('[name="gambar"]').value || null
     };
 
     try {
