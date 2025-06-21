@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cari Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1750527647868">
+  <link rel="stylesheet" href="css/main.css?v=1750528139455">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -296,19 +296,9 @@
                     <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
                 </td>
                 <td data-label="gambar">
-                  <a href="${d.gambar || '-'}">Gambar</a>
+                  <a href="${item.gambar || '-'}" target="_blank" rel="noopener noreferrer class="text-blue-600 underline">Lihat</a>
                 </td>
 
-                <td class="actions-cell">
-                <div class="buttons right nowrap">
-                    <button class="button small green --jb-modal" data-target="sample-modal-2">
-                        <span class="icon"><i class="mdi mdi-pencil"></i></span>
-                    </button>
-                    <button data-id="${d.id}" class="button small red --jb-modal" data-target="sample-modal">
-                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                    </button>
-                </div>
-            </td>
             `;
         tbody.appendChild(row);
       });
@@ -356,8 +346,8 @@
                 <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
             </td>
             <td data-label="gambar">
-                  <a href="${d.gambar || '-'}">Gambar</a>
-                </td>
+                <a href="${item.gambar || '-'}" target="_blank" rel="noopener noreferrer class="text-blue-600 underline">Lihat</a>
+            </td>
           
             <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -480,7 +470,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1750527647868"></script>
+<script type="text/javascript" src="js/main.min.js?v=1750528139455"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

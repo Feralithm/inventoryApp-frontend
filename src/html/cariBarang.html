@@ -93,19 +93,9 @@
                     <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
                 </td>
                 <td data-label="gambar">
-                  <a href="${d.gambar || '-'}">Gambar</a>
+                  <a href="${item.gambar || '-'}" target="_blank" rel="noopener noreferrer class="text-blue-600 underline">Lihat</a>
                 </td>
 
-                <td class="actions-cell">
-                <div class="buttons right nowrap">
-                    <button class="button small green --jb-modal" data-target="sample-modal-2">
-                        <span class="icon"><i class="mdi mdi-pencil"></i></span>
-                    </button>
-                    <button data-id="${d.id}" class="button small red --jb-modal" data-target="sample-modal">
-                        <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                    </button>
-                </div>
-            </td>
             `;
         tbody.appendChild(row);
       });
@@ -153,8 +143,8 @@
                 <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
             </td>
             <td data-label="gambar">
-                  <a href="${d.gambar || '-'}">Gambar</a>
-                </td>
+                <a href="${item.gambar || '-'}" target="_blank" rel="noopener noreferrer class="text-blue-600 underline">Lihat</a>
+            </td>
           
             <td class="actions-cell">
                 <div class="buttons right nowrap">

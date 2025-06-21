@@ -171,7 +171,7 @@ async function fetchBarang() {
           <small class="text-gray-500">${new Date(item.created_at).toLocaleDateString()}</small>
         </td>
         <td data-label="gambar">
-            <a href="${item.gambar || '-'}">Gambar</a>
+            <a href="${item.gambar || '-'}" target="_blank" rel="noopener noreferrer class="text-blue-600 underline">Lihat</a>
           </td>
       `;
       tbody.appendChild(row);
