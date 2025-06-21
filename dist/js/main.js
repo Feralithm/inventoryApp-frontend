@@ -240,7 +240,7 @@ function renderBarangPage(page) {
   var pageData = barangData.slice(start, end);
   pageData.forEach(function (item) {
     var row = document.createElement('tr');
-    row.innerHTML = "\n        <td data-label=\"Id\">\n          ".concat(item.id, "\n        </td>\n        <td data-label=\"Nama\">").concat(item.nama, "</td>\n        <td data-label=\"Stok\">").concat(item.stok, "</td>\n        <td data-label=\"Harga\">Rp").concat(Number(item.harga).toLocaleString(), "</td>\n        <td data-label=\"Kategori\">").concat(item.kategori || '-', "</td>\n        <td data-label=\"Created\">\n          <small class=\"text-gray-500\">").concat(new Date(item.created_at).toLocaleDateString(), "</small>\n        </td>\n        <td data-label=\"gambar\">").concat(item.gambar || '-', "</td>\n      ");
+    row.innerHTML = "\n        <td data-label=\"Id\">\n          ".concat(item.id, "\n        </td>\n        <td data-label=\"Nama\">").concat(item.nama, "</td>\n        <td data-label=\"Stok\">").concat(item.stok, "</td>\n        <td data-label=\"Harga\">Rp").concat(Number(item.harga).toLocaleString(), "</td>\n        <td data-label=\"Kategori\">").concat(item.kategori || '-', "</td>\n        <td data-label=\"Created\">\n          <small class=\"text-gray-500\">").concat(new Date(item.created_at).toLocaleDateString(), "</small>\n        </td>\n        <td data-label=\"gambar\">\n            <a href=\"").concat(d.gambar || '-', "\">Gambar</a>\n          </td>\n      ");
     tbody.appendChild(row);
   });
   document.getElementById('page-info').textContent = "Page ".concat(page, " of ").concat(Math.ceil(barangData.length / itemsPerPage));

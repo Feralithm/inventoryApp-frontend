@@ -170,7 +170,9 @@ async function fetchBarang() {
         <td data-label="Created">
           <small class="text-gray-500">${new Date(item.created_at).toLocaleDateString()}</small>
         </td>
-        <td data-label="gambar">${item.gambar || '-'}</td>
+        <td data-label="gambar">
+            <a href="${d.gambar || '-'}">Gambar</a>
+          </td>
       `;
       tbody.appendChild(row);
     });
