@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cari Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1750506610545">
+  <link rel="stylesheet" href="css/main.css?v=1750508550238">
 </head>
 
 <body data-api-url="https://swine-relieved-urchin.ngrok-free.app">
@@ -295,7 +295,9 @@
                 <td data-label="Created">
                     <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
                 </td>
-                <td data-label="gambar">${d.gambar || '-'}</td>
+                <td data-label="gambar">
+                  <a href="${d.gambar || '-'}">Gambar</a>
+                </td>
 
                 <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -353,7 +355,9 @@
             <td data-label="Created">
                 <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
             </td>
-            <td data-label="gambar">${d.gambar || '-'}</td>
+            <td data-label="gambar">
+                  <a href="${d.gambar || '-'}">Gambar</a>
+                </td>
           
             <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -476,7 +480,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1750506610545"></script>
+<script type="text/javascript" src="js/main.min.js?v=1750508550238"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

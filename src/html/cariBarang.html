@@ -92,7 +92,9 @@
                 <td data-label="Created">
                     <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
                 </td>
-                <td data-label="gambar">${d.gambar || '-'}</td>
+                <td data-label="gambar">
+                  <a href="${d.gambar || '-'}">Gambar</a>
+                </td>
 
                 <td class="actions-cell">
                 <div class="buttons right nowrap">
@@ -150,7 +152,9 @@
             <td data-label="Created">
                 <small class="text-gray-500">${new Date(d.created_at).toLocaleDateString()}</small>
             </td>
-            <td data-label="gambar">${d.gambar || '-'}</td>
+            <td data-label="gambar">
+                  <a href="${d.gambar || '-'}">Gambar</a>
+                </td>
           
             <td class="actions-cell">
                 <div class="buttons right nowrap">
