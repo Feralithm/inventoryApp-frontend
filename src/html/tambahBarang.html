@@ -67,7 +67,7 @@
         <div class="field">
           <label class="label">URL Gambar <small>(opsional)</small></label>
           <div class="control">
-            <input type="url" autocomplete="off" id="gambar" name="gambar" class="input"
+            <input type="url" disabled autocomplete="off" id="gambar" name="gambar" class="input"
               placeholder="https://link-gambar.jpg">
           </div>
         </div>
@@ -85,13 +85,6 @@
       </form>
     </div>
 
-    <div class="card-content">
-      <div id="qrSection" class="hidden mt-5 flex-col items-center">
-        <h2 class="text-xl font-semibold mb-4">QR Code Barang</h2>
-        <img id="qrImage" alt="QR Code" class="max-w-xs" />
-        <button onclick="cetakQRLabelPDF()" class="mt-4 button blue">Cetak PDF</button>
-      </div>
-    </div>
   </div>
 </section>
 
