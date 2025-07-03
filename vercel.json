@@ -1,0 +1,12 @@
+{
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/laporan", "destination": "/laporan.html" },
+    { "source": "/transaksi", "destination": "/transaksi.html" },
+    { "source": "/profile", "destination": "/profile.html" },
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/tambah-barang", "destination": "/tambahBarang.html" },
+    { "source": "/cari-barang", "destination": "/cariBarang.html" }
+  ]
+}
