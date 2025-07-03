@@ -7,7 +7,7 @@ thead {
 }
 
 tr {
-  @apply max-w-full block relative border-b-4 border-gray-100
+  @apply max-w-full block relative border-b-4 border-gray-300
     lg:table-row lg:border-b-0;
 }
 
@@ -20,7 +20,7 @@ th {
 }
 
 td {
-  @apply flex justify-between text-right py-3 px-4 align-top border-b border-gray-100
+  @apply flex justify-between text-right py-3 px-4 align-top border-b border-gray-200
     lg:table-cell lg:text-left lg:py-2 lg:px-3 lg:align-middle lg:border-b-0;
 }
 
@@ -33,7 +33,7 @@ td:last-child {
 }
 
 tbody tr:hover td {
-  @apply lg:bg-gray-100;
+  @apply lg:bg-gray-200;
 }
 
 td:before {
@@ -41,7 +41,8 @@ td:before {
   @apply font-semibold pr-3 text-left lg:hidden;
 }
 
-td.checkbox-cell, th.checkbox-cell {
+td.checkbox-cell,
+th.checkbox-cell {
   @apply lg:w-5;
 }
 
@@ -54,7 +55,8 @@ td.image-cell {
   @apply border-b-0 lg:w-6;
 }
 
-td.image-cell:before, td.actions-cell:before {
+td.image-cell:before,
+td.actions-cell:before {
   @apply hidden;
 }
 

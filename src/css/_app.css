@@ -1,5 +1,5 @@
 body {
-  @apply bg-gray-50 text-base pt-14 lg:pl-60;
+  @apply bg-gray-300 text-base pt-14 lg:pl-60;
 }
 
 #app {
@@ -14,11 +14,13 @@ body {
   @apply cursor-pointer;
 }
 
-.clipped, .clipped body {
+.clipped,
+.clipped body {
   @apply overflow-hidden;
 }
 
-.m-clipped, .m-clipped body {
+.m-clipped,
+.m-clipped body {
   @apply overflow-hidden lg:overflow-visible;
 }
 
