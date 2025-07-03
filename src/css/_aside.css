@@ -1,9 +1,9 @@
 .aside {
-  @apply w-60 -left-60 fixed top-0 z-40 h-screen blur-lg bg-gray-500 transition-all lg:left-0;
+  @apply w-60 -left-60 fixed top-0 z-40 h-screen blur-lg bg-gray-700 transition-all lg:left-0;
 }
 
 .aside-tools {
-  @apply flex flex-row w-full bg-gray-600 text-white flex-1 px-3 h-14 items-center;
+  @apply flex flex-row w-full bg-gray-700 text-white flex-1 px-3 h-14 items-center;
 }
 
 .aside-mobile-expanded .aside {
@@ -32,7 +32,7 @@
 }
 
 .menu-list li > a {
-  @apply hover:bg-gray-600;
+  @apply hover:bg-gray-800;
 }
 
 .menu-list li a .menu-item-label {
