@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Barang</title>
-  <link rel="stylesheet" href="css/main.css?v=1751572610014">
+  <link rel="stylesheet" href="css/main.css?v=1751592058907">
 </head>
 
 <!-- <body data-api-url="http://localhost:3000"> -->
@@ -217,7 +217,7 @@
           <label class="label">Nama Barang</label>
           <div class="control">
             <input type="text" autocomplete="off" name="nama" class="input" required
-              placeholder="Contoh: Lemari MS 3 susun">
+              placeholder="Contoh: Kulkas 2 pintu">
           </div>
         </div>
 
@@ -273,7 +273,7 @@
           <label class="label">URL Gambar <small>(opsional)</small></label>
           <div class="control">
             <input type="url" disabled autocomplete="off" id="gambar" name="gambar" class="input"
-              placeholder="https://link-gambar.jpg">
+              placeholder="Link gamabar otomatis terisi setelah upload">
           </div>
         </div>
 
@@ -333,7 +333,7 @@
     if (!file) return;
 
     uploadStatus.classList.remove("hidden");
-    uploadStatus.textContent = "📤 Mengupload gambar...";
+    uploadStatus.textContent = "📤Tunggu gmbar diproses...";
 
     const formData = new FormData();
 
@@ -501,7 +501,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1751572610014"></script>
+<script type="text/javascript" src="js/main.min.js?v=1751592058907"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

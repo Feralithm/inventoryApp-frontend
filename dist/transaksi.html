@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transaksi</title>
-  <link rel="stylesheet" href="css/main.css?v=1751572610014">
+  <link rel="stylesheet" href="css/main.css?v=1751592058907">
 </head>
 
 <!-- <body data-api-url="http://localhost:3000"> -->
@@ -260,7 +260,7 @@
   </div>
 </section>
 
-<!-- fungsi scan dan tambah barang -->
+<!-- fungsi tambah barang -->
 <script>
   let barangTerakhir = null;
   let barangIndex = 0;
@@ -285,7 +285,7 @@
         <input type="number" min="0" class="input" name="jumlah" placeholder="Jumlah" required>
       </div>
       <div class="control">
-        <input type="number" min="0" class="input harga_barang" name="harga" placeholder="Harga" required>
+        <input type="number" min="0" class="input harga_barang" name="harga" placeholder="Harga" required disabled>
       </div>
       <div class="control">
         <button type="button" class="button is-danger" onclick="this.closest('.field').remove()">Hapus</button>
@@ -502,7 +502,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1751572610014"></script>
+<script type="text/javascript" src="js/main.min.js?v=1751592058907"></script>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">

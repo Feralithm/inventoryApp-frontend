@@ -12,7 +12,7 @@
           <label class="label">Nama Barang</label>
           <div class="control">
             <input type="text" autocomplete="off" name="nama" class="input" required
-              placeholder="Contoh: Lemari MS 3 susun">
+              placeholder="Contoh: Kulkas 2 pintu">
           </div>
         </div>
 
@@ -68,7 +68,7 @@
           <label class="label">URL Gambar <small>(opsional)</small></label>
           <div class="control">
             <input type="url" disabled autocomplete="off" id="gambar" name="gambar" class="input"
-              placeholder="https://link-gambar.jpg">
+              placeholder="Link gamabar otomatis terisi setelah upload">
           </div>
         </div>
 
@@ -128,7 +128,7 @@
     if (!file) return;
 
     uploadStatus.classList.remove("hidden");
-    uploadStatus.textContent = "📤 Mengupload gambar...";
+    uploadStatus.textContent = "📤Tunggu gmbar diproses...";
 
     const formData = new FormData();
 
